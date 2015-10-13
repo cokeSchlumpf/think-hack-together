@@ -1,9 +1,14 @@
 # Think & Hack together
 Tolles Projekt.
 
-## Work with NPM Project
+## Working with NPM Project
 ```
 cd src/main/webapp
 npm install
 npm run watch
+```
+
+## Working with NPM Project and Maven
+```
+mvn integration-test -Dwatch
 ```
