@@ -1,10 +1,9 @@
 # Think & Hack together
 Tolles Projekt.
 
-## Hallo Freunde
-* Hallo
-* Hallo
-
+## Work with NPM Project
 ```
-Hallo Freunde
+cd src/main/webapp
+npm install
+npm run watch
 ```
