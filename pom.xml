@@ -28,7 +28,8 @@
     <maven.javadoc.plugin.version>2.10.3</maven.javadoc.plugin.version>
     <maven.war.plugin.version>2.6</maven.war.plugin.version>
 
-    <webapp.build.dir>webapp</webapp.build.dir></properties>
+    <webapp.build.dir>webapp</webapp.build.dir>
+  </properties>
 
   <distributionManagement>
     <repository>
@@ -239,15 +240,30 @@
               <packagingExcludes>${project.build.directory}/${webapp.build.dir}/node_modules,${project.build.directory}/${webapp.build.dir}/src</packagingExcludes>
               <webResources>
                 <resource>
-                  <directory>${project.build.directory}/${webapp.build.dir}</directory>
+                  <directory>${basedir}/src/main/webapp</directory>
                   <excludes>
                     <exclude>**/node_modules/</exclude>
                     <exclude>**/src/</exclude>
+                    <exclude>**/.DS_Store</exclude>
+                    <exclude>**/.eslintrc</exclude>
+                    <exclude>**/bootstrap.config.json</exclude>
+                    <exclude>**/package.json</exclude>
                   </excludes>
                 </resource>
               </webResources>
-
             </configuration>
+          </plugin>
+
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-clean-plugin</artifactId>
+              <configuration>
+                <filesets>
+                  <fileset>
+                    <directory>${basedir}/src/main/webapp/node_modules</directory>
+                  </fileset>
+                </filesets>
+              </configuration>
           </plugin>
         </plugins>
       </build>
@@ -319,6 +335,7 @@
 
               <bootstrapProperties>
                 <Port>9080</Port>
+                <ProjectName>${project.name}</ProjectName>
               </bootstrapProperties>
 
               <features>
