@@ -5,6 +5,8 @@ import Container from './container';
 
 export default React.createClass({
 
+  displayName: 'Navbar',
+
   render() {
     return (
       <nav className="navbar navbar-static-top">
@@ -16,7 +18,7 @@ export default React.createClass({
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <Link className="navbar-brand" to="home">Think & Hack<span className="highlight"> together</span></Link>
+            <Link className="navbar-brand" to="home">Think & Hack<span className="highlight"> together</span> JURI</Link>
           </div>
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav pull-right">

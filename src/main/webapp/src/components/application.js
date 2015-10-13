@@ -11,6 +11,8 @@ import Navbar from './navbar';
 import Footer from './footer';
 
 const App = React.createClass({
+  displayName: 'App',
+
   propTypes: {
     children: React.PropTypes.any
   },
