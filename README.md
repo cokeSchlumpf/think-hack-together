@@ -1,14 +1,19 @@
 # Think & Hack together
 Tolles Projekt.
 
-## Working with NPM Project
+## UI development cycle
+To start the liberty profile with the backend application use Maven in project root directory.
+
+```
+mvn integration-test -Dwatch
+```
+
+Afterwords start NPM watch.
+
 ```
 cd src/main/webapp
 npm install
 npm run watch
 ```
 
-## Working with NPM Project and Maven
-```
-mvn integration-test -Dwatch
-```
+Now you're able to change the frontent-sources and they will be automatically pushed to the server.
