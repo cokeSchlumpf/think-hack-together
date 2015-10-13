@@ -20,7 +20,9 @@ export default React.createClass({
   },
 
   getClassName() {
-    const names = { jumbotron: true };
+    const names = {
+      jumbotron: true
+    };
     if (this.props.className) {
       names[this.props.className] = true;
     }
@@ -34,7 +36,7 @@ export default React.createClass({
           { this.props.children }
         </Container>
       </div>
-    );
+      );
   }
 
 });

@@ -24,7 +24,9 @@ const Icon = React.createClass({
   },
 
   getClassName() {
-    const names = { icon: true };
+    const names = {
+      icon: true
+    };
     names[this.props.className] = true;
     return cx(names);
   },
@@ -35,7 +37,7 @@ const Icon = React.createClass({
         <h3>{ this.props.title }</h3>
         <p>{ this.props.text }</p>
       </div>
-    );
+      );
   }
 });
 
@@ -60,7 +62,7 @@ const Header = React.createClass({
           </Col>
         </Row>
       </Jumbotron>
-    );
+      );
   }
 });
 
@@ -78,24 +80,24 @@ const ItemGroup = React.createClass({
       <div>
         <h2>{ this.props.title}</h2>
         {
-          items.map((row, rowindex) => {
-            return (
-              <Row key={ 'row_' + rowindex }>
+      items.map((row, rowindex) => {
+        return (
+          <Row key={'row_' + rowindex}>
                 {
-                  row.map((column, colindex) => {
-                    return (
-                      <Col key={ 'col_' + colindex } md={ 6 }>
+          row.map((column, colindex) => {
+            return (
+              <Col key={'col_' + colindex} md={ 6 }>
                         <Thumbnail { ... column } />
                       </Col>
-                    );
-                  })
-                }
-              </Row>
-            );
+              );
           })
-        }
+          }
+              </Row>
+          );
+      })
+      }
       </div>
-    );
+      );
   }
 });
 
@@ -135,6 +137,6 @@ export default React.createClass({
         </Container>
         <Search showTitle />
       </View>
-    );
+      );
   }
 });

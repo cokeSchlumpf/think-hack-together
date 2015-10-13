@@ -42,7 +42,7 @@ const App = React.createClass({
 
   render() {
     return (
-        <div>
+      <div>
           <Navbar />
           { this.props.children }
           <Footer />
@@ -55,7 +55,7 @@ const App = React.createClass({
 // const history = useBasename(createHistory)({ basename: BaseURL() });
 
 export default (
-  <Router>
+<Router>
     <Route path="/" component={ App }>
       <IndexRoute component={ Home } name="home" />
       <Route path="ideas/list" component={ Ideas } name="ideas" />

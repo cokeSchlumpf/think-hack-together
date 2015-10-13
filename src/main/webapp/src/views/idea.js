@@ -56,6 +56,6 @@ export default React.createClass({
           </Row>
         </Container>
       </View>
-    );
+      );
   }
 });

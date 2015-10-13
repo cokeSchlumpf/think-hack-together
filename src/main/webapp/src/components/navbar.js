@@ -32,6 +32,6 @@ export default React.createClass({
           </div>
         </Container>
       </nav>
-    );
+      );
   }
 });

@@ -19,11 +19,13 @@ export default React.createClass({
     tags: React.PropTypes.array,
     title: React.PropTypes.string,
     town: React.PropTypes.string,
-    type: React.PropTypes.oneOf([ 'Hackathon', 'Ongoing' ])
+    type: React.PropTypes.oneOf(['Hackathon', 'Ongoing'])
   },
 
   getClassName() {
-    const names = { thumbnail: true };
+    const names = {
+      thumbnail: true
+    };
     names[this.props.color] = true;
     return cx(names);
   },
@@ -39,10 +41,14 @@ export default React.createClass({
   getLikes() {
     return (
       <a href="#" className="likes" onClick={ this.handleLike }>
-        <span className={ cx({ glyphicon: true, 'glyphicon-heart': this.props.liked, 'glyphicon-heart-empty': !this.props.liked }) } />
+        <span className={ cx({
+        glyphicon: true,
+        'glyphicon-heart': this.props.liked,
+        'glyphicon-heart-empty': !this.props.liked
+      }) } />
         &nbsp;{ this.props.likes }
       </a>
-    );
+      );
   },
 
   handleLike(event) {
@@ -58,10 +64,10 @@ export default React.createClass({
         <ul className="tags">
           <li className="author">{ this.getActivityTypeAndDate() }</li>
           {
-            this.props.tags.map((tag, index) => {
-              return <li key={ 'li_' + index }>{ tag }</li>;
-            })
-          }
+      this.props.tags.map((tag, index) => {
+        return <li key={'li_' + index}>{ tag }</li>;
+      })
+      }
         </ul>
 
         <div className="caption">
@@ -76,6 +82,6 @@ export default React.createClass({
           </p>
         </div>
       </div>
-    );
+      );
   }
 });
