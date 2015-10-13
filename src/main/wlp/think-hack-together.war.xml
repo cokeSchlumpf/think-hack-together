@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive>
-    <dir sourceOnDisk="/Users/michael/Documents/Workspaces/web/think-hack-together/src/main/webapp" targetInArchive="/"/>
-    <dir sourceOnDisk="/Users/michael/Documents/Workspaces/web/think-hack-together/target/classes" targetInArchive="/WEB-INF/classes"/>
-    <file sourceOnDisk="/Users/michael/.m2/repository/javax/javaee-web-api/7.0/javaee-web-api-7.0.jar" targetInArchive="/WEB-INF/lib/javaee-web-api-7.0.jar"/>
+    <dir sourceOnDisk="${wlp.install.dir}/../../../src/main/webapp" targetInArchive="/" />
+    <dir sourceOnDisk="${wlp.install.dir}/../../classes" targetInArchive="/WEB-INF/classes" />
 </archive>
