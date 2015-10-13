@@ -1,3 +1,13 @@
+/**
+ * Utility functions
+ * @module utils/listToMatrix
+ */
+
+ /**
+  * @constructor
+  * @param {array} list - The subject to greet.
+  * @param {number} elementsPerSubArray - The subject to greet.
+  */
 export default function(list, elementsPerSubArray) {
   let matrix = [];
 

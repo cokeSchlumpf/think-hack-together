@@ -1,3 +1,8 @@
+/**
+ * Search module.
+ * @module components/search
+ */
+
 import React from 'react';
 import { Link } from 'react-router';
 import cx from 'classnames';

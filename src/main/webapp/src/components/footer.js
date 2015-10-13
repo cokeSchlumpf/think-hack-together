@@ -1,3 +1,8 @@
+/**
+ * Footer module.
+ * @module components/footer
+ */
+
 import React from 'react';
 import { Link } from 'react-router';
 import cx from 'classnames';

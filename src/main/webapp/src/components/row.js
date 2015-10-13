@@ -1,3 +1,8 @@
+/**
+ * Row module.
+ * @module components/row
+ */
+
 import React from 'react';
 import Router from 'react-router';
 import cx from 'classnames';

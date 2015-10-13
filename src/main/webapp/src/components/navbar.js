@@ -1,3 +1,8 @@
+/**
+ * Navbar module.
+ * @module components/navbar
+ */
+
 import React from 'react';
 import { Link } from 'react-router';
 
