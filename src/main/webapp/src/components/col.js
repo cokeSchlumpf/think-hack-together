@@ -41,7 +41,7 @@ export default React.createClass({
       <div className={ this.getClassName() }>
         { this.props.children }
       </div>
-    );
+      );
   }
 
 });

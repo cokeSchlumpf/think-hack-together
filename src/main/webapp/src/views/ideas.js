@@ -4,6 +4,6 @@ export default React.createClass({
   render() {
     return (
       <h1>Ideas</h1>
-    );
+      );
   }
 });

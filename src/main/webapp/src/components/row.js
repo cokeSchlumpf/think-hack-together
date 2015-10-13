@@ -20,7 +20,9 @@ export default React.createClass({
   },
 
   getClassName() {
-    const names = { row: true };
+    const names = {
+      row: true
+    };
     if (this.props.className) {
       names[this.props.className] = true;
     }
@@ -32,7 +34,7 @@ export default React.createClass({
       <div className={ this.getClassName() }>
         { this.props.children }
       </div>
-    );
+      );
   }
 
 });

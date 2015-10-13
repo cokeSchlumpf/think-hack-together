@@ -19,7 +19,7 @@ const App = React.createClass({
 
   render() {
     return (
-        <div>
+      <div>
           <Navbar />
           { this.props.children }
           <Footer />
@@ -29,7 +29,7 @@ const App = React.createClass({
 });
 
 export default (
-  <Router>
+<Router>
     <Route path="/" component={ App }>
       <IndexRoute component={ Home } />
       <Route path="ideas/list" component={ Ideas } name="ideas" />

@@ -19,7 +19,9 @@ const Icon = React.createClass({
   },
 
   getClassName() {
-    const names = { icon: true };
+    const names = {
+      icon: true
+    };
     names[this.props.className] = true;
     return cx(names);
   },
@@ -30,7 +32,7 @@ const Icon = React.createClass({
         <h3>{ this.props.title }</h3>
         <p>{ this.props.text }</p>
       </div>
-    );
+      );
   }
 });
 
@@ -53,7 +55,7 @@ const Header = React.createClass({
           </Col>
         </Row>
       </Jumbotron>
-    );
+      );
   }
 });
 
@@ -69,24 +71,24 @@ const ItemGroup = React.createClass({
       <div>
         <h2>{ this.props.title}</h2>
         {
-          items.map((row, rowindex) => {
-            return (
-              <Row key={ 'row_' + rowindex }>
+      items.map((row, rowindex) => {
+        return (
+          <Row key={'row_' + rowindex}>
                 {
-                  row.map((column, colindex) => {
-                    return (
-                      <Col key={ 'col_' + colindex } md={ 6 }>
+          row.map((column, colindex) => {
+            return (
+              <Col key={'col_' + colindex} md={ 6 }>
                         <Thumbnail { ... column } />
                       </Col>
-                    );
-                  })
-                }
-              </Row>
-            );
+              );
           })
-        }
+          }
+              </Row>
+          );
+      })
+      }
       </div>
-    );
+      );
   }
 });
 
@@ -108,7 +110,7 @@ export default React.createClass({
           likes: 296,
           liked: false,
           organizer: 'Michael Wellner',
-          tags: [ 'Mobile', 'Cloud' ],
+          tags: ['Mobile', 'Cloud'],
           title: 'Lorem Ipsum dolor',
           town: 'Munich',
           type: 'Hackathon'
@@ -120,7 +122,7 @@ export default React.createClass({
           liked: true,
           likes: 228,
           organizer: 'Jean Valjean',
-          tags: [ 'Mobile', 'Cloud' ],
+          tags: ['Mobile', 'Cloud'],
           title: 'Lorem Ipsum dolor sit amet dolor',
           town: 'Paris',
           type: 'Ongoing'
@@ -134,7 +136,7 @@ export default React.createClass({
           likes: 296,
           liked: false,
           organizer: 'Michael Wellner',
-          tags: [ 'Mobile', 'Cloud' ],
+          tags: ['Mobile', 'Cloud'],
           title: 'Lorem Ipsum dolor',
           town: 'Munich',
           type: 'Hackathon'
@@ -146,7 +148,7 @@ export default React.createClass({
           liked: true,
           likes: 228,
           organizer: 'Jean Valjean',
-          tags: [ 'Mobile', 'Cloud' ],
+          tags: ['Mobile', 'Cloud'],
           title: 'Lorem Ipsum dolor sit amet dolor',
           town: 'Paris',
           type: 'Ongoing'
@@ -165,6 +167,6 @@ export default React.createClass({
         </Container>
         <Search showTitle />
       </View>
-    );
+      );
   }
 });

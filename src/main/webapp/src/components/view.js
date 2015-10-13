@@ -21,7 +21,7 @@ export default React.createClass({
       <div className="view">
         { this.props.children }
       </div>
-    );
+      );
   }
 
 });

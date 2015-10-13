@@ -19,7 +19,9 @@ export default React.createClass({
   },
 
   getClassName() {
-    const names = { container: true };
+    const names = {
+      container: true
+    };
     if (this.props.className) {
       names[this.props.className] = true;
     }
@@ -31,7 +33,7 @@ export default React.createClass({
       <div className={ this.getClassName() }>
         { this.props.children }
       </div>
-    );
+      );
   }
 
 });
