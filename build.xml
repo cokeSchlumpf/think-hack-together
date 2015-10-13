@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<project name="npm-build" default="run">
+  <target name="run" description="">
+    <property environment="env"/>    
+    <antcall target="copy-webcontent" />
+  </target>
+  
+  <!--
+    Copies java depencies from `simple-java` into java-libs.zip.
+  -->
+  <target name="copy-webcontent">
+    <copy todir="${project.build.directory}/${webapp.build.dir}">
+      <fileset dir="${basedir}/src/main/webapp" />
+      <filterchain>
+        <expandproperties />
+      </filterchain>
+    </copy>
+    
+    <exec executable="npm" dir="${project.build.directory}/${webapp.build.dir}">
+      <arg value="install"/>
+    </exec>
+    
+    <exec executable="npm" dir="${project.build.directory}/${webapp.build.dir}">
+      <arg value="run"/>
+      <arg value="build"/>
+    </exec>
+  </target>
+</project>

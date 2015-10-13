@@ -1,0 +1,10 @@
+.classpath
+.DS_Store
+.factorypath
+.project
+.apt_generated/
+.settings/
+target/
+src/main/webapp/node_modules
+src/main/webapp/assets/js/main.min.js
+src/main/webapp/assets/css/style.js

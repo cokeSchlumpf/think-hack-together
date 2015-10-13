@@ -1,0 +1,291 @@
+@font-face {
+  font-family: "Lubalin Book";
+  src: url("../fonts/lubalingraphstd-book-webfont.eot");
+  src: url("../fonts/lubalingraphstd-book-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lubalingraphstd-book-webfont.woff") format("woff"), url("../fonts/lubalingraphstd-book-webfont.ttf") format("truetype"), url("../fonts/lubalingraphstd-book-webfont.svg#glyphicons_halflingsregular") format("svg");
+}
+
+@font-face {
+  font-family: "Lubalin Demi";
+  src: url("../fonts/lubalingraphstd-demi-webfont.eot");
+  src: url("../fonts/lubalingraphstd-demi-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/lubalingraphstd-demi-webfont.woff") format("woff"), url("../fonts/lubalingraphstd-demi-webfont.ttf") format("truetype"), url("../fonts/lubalingraphstd-demi-webfont.svg#glyphicons_halflingsregular") format("svg");
+}
+
+/*
+ * Font Variables
+ */
+@highlight-font-family: "Lubalin Book", serif;
+
+/*
+ * Color variables
+ */
+@text-color: #000;
+@text-highlight-color: #3C9BD5;
+@brand-color: #82AECD;
+
+/*
+ * IBM Colors
+ */
+@green: #97CD46;
+@grey: #F3F3F4;
+@light-orange: #FCBF12;
+@turquoise: #14AFA8;
+
+body, html {
+  font-family: "HelveticaNeue-Roman","Helvetica Neue Roman","Helvetica Roman","Helvetica-Roman","Helvetica","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 10pt;
+  color: @text-color;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  height: 100%;
+  position: relative;
+  overflow-x: auto;
+}
+
+.wrapper > div {
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 100px;
+}
+
+.view {
+  margin-bottom: 20px;
+}
+
+a {
+  color: @text-highlight-color;
+  text-decoration: none;
+}
+
+a:hover {
+  color: @brand-color;
+  text-decoration: none;
+}
+
+/*
+ * Navbar
+ */
+.navbar {
+  margin-bottom: 0;
+
+  .navbar-brand {
+    color: @text-color;
+    font-size: 2em;
+    font-family: @highlight-font-family;
+  }
+
+  .navbar-brand span.highlight {
+    color: @brand-color;
+  }
+}
+
+/*
+ * Jumbotron
+ */
+.jumbotron {
+  background-color: @green;
+  margin-bottom: 0;
+
+  .separator {
+    background: url("../images/verticalline.png") repeat-y center center;
+    text-align: center;
+  }
+
+  .icon {
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 35px 35px;
+
+    padding-top: 2px;
+    padding-left: 45px;
+    margin-bottom: 25px;
+
+    overflow: hidden;
+
+    h3 {
+      font: 1.5em "Lubalin Book",serif;
+      margin: 0;
+      color: #fff;
+    }
+
+    p {
+      font-size: 1em;
+      color: #fff;
+      margin-bottom: 0;
+    }
+  }
+
+  .icon:last-child {
+    margin-bottom: 0;
+  }
+
+  .think { background-image: url("../images/icon-think.svg"); }
+  .hack { background-image: url("../images/icon-hack.svg"); }
+  .together { background-image: url("../images/icon-together.svg"); }
+
+  .about {
+    background: url("../images/braces.svg") no-repeat center center;
+    background-size: 100% 100%;
+
+    p {
+      font-size: 1.4em;
+      margin: 30px;
+      text-align: center;
+    }
+  }
+}
+
+.search {
+  .separator {
+    line-height: 34px;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+.jumbotron.footer {
+  background-color: @grey;
+  position: absolute;
+
+  margin-bottom: 0;
+  padding: 0;
+  height: 100px;
+  bottom: 0;
+  width: 100%;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-right: 15px;
+  }
+
+  ul li {
+    display: inline;
+  }
+
+  ul li:after {
+    content: " | "
+  }
+
+  ul li:last-child:after {
+    content: ""
+  }
+
+  .ibm {
+    background: url("../images/ibm.svg") no-repeat 15px 40px;
+  }
+
+  .links {
+    text-align: right;
+  }
+
+  .ibm, .links {
+    overflow: hidden;
+    height: 100px;
+    color: #888;
+    font-size: 0.8em;
+    line-height: 60px;
+    padding: 45px 0 0 200px;
+  }
+
+  .separator {
+    line-height: 100px;
+  }
+}
+
+.jumbotron.idea-detail {
+  h1 {
+    font: 5em @highlight-font-family;
+    margin: 100px 0 40px 0;
+  }
+
+}
+
+.content {
+  h2 {
+    font-weight: 300;
+    font-size: 1em;
+    text-transform: uppercase;
+    color: #888;
+    margin: 25px 0 15px 0;
+  }
+
+  .thumbnail {
+    border: 1px solid #ccc;
+    border-top-width: 5px;
+    padding: 10px;
+
+    ul.tags {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.8em;
+
+      li {
+        display: inline;
+        margin: 0;
+        padding: 0;
+
+        text-transform: uppercase;
+        color: #3C9BD5;
+      }
+
+      li.author { text-transform: none; }
+
+      li:before {
+        content: ' #';
+      }
+
+      li:first-child {
+        color: #888;
+      }
+
+      li:first-child:before {
+        content: '';
+      }
+    }
+
+    .caption {
+      padding: 0;
+      height: 8em;
+      position: relative;
+      overflow: hidden;
+
+      h3 {
+        margin: 5px 0 5px;
+        font-size: 2em;
+        font-family: @highlight-font-family;
+        max-height: 6em;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        a, a:hover {
+          color: @text-color;
+        }
+      }
+    }
+
+    .actions p {
+      margin: 10px 0 0 0;
+
+      a.more {
+        font-weight: bold;
+      }
+
+      a.more:hover {
+        color: @text-highlight-color;
+      }
+    }
+
+
+  }
+
+  .thumbnail.light-orange { border-top-color: @light-orange }
+  .thumbnail.turquoise { border-top-color: @turquoise }
+}
