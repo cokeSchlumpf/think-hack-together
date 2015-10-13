@@ -7,7 +7,7 @@ import Col from './col';
 import Row from './row';
 
 export default React.createClass({
-  
+
   render() {
     return (
       <Jumbotron className="footer">
@@ -26,7 +26,7 @@ export default React.createClass({
           </Col>
         </Row>
       </Jumbotron>
-    )
+    );
   }
-  
+
 });

@@ -11,7 +11,7 @@ export default React.createClass({
     children: React.PropTypes.any,
     className: React.PropTypes.string
   },
-  
+
   getClassName() {
     const names = { container: true };
     if (this.props.className) {

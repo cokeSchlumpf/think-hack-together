@@ -24,17 +24,17 @@ export default React.createClass({
   },
 
   getActivityTypeAndDate() {
-    const date = dateformat(new Date(this.props.date * 1000), "dddd, mmm dS, yyyy");
-    
+    const date = dateformat(new Date(this.props.date * 1000), 'dddd, mmm dS, yyyy');
+
     const type = this.props.type === 'Ongoing' ? 'Ongoing activity started on' : 'Hackathon on';
-    
+
     return `${type} ${ date }, ${ this.props.town }`;
   },
-  
+
   getLikes() {
     return (
       <a href="#" className="likes" onClick={ this.handleLike }>
-        <span className={ cx({ glyphicon: true, "glyphicon-heart": this.props.liked, "glyphicon-heart-empty": !this.props.liked }) } />
+        <span className={ cx({ glyphicon: true, 'glyphicon-heart': this.props.liked, 'glyphicon-heart-empty': !this.props.liked }) } />
         &nbsp;{ this.props.likes }
       </a>
     );
@@ -42,7 +42,7 @@ export default React.createClass({
 
   handleLike(event) {
     // TODO
-    console.log("like");
+    console.log('like');
     event.stopPropagation();
     event.preventDefault();
   },
@@ -54,7 +54,7 @@ export default React.createClass({
           <li className="author">{ this.getActivityTypeAndDate() }</li>
           {
             this.props.tags.map((tag, index) => {
-              return <li key={ "li_" + index }>{ tag }</li>;
+              return <li key={ 'li_' + index }>{ tag }</li>;
             })
           }
         </ul>

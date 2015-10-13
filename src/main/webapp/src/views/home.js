@@ -62,7 +62,7 @@ const ItemGroup = React.createClass({
     items: React.PropTypes.array,
     title: React.PropTypes.string
   },
-  
+
   render() {
     const items = ListToMatrix(this.props.items, 2);
     return (
@@ -71,11 +71,11 @@ const ItemGroup = React.createClass({
         {
           items.map((row, rowindex) => {
             return (
-              <Row key={ "row_" + rowindex }>
+              <Row key={ 'row_' + rowindex }>
                 {
                   row.map((column, colindex) => {
                     return (
-                      <Col key={ "col_" + colindex } md={ 6 }>
+                      <Col key={ 'col_' + colindex } md={ 6 }>
                         <Thumbnail { ... column } />
                       </Col>
                     );
@@ -94,67 +94,67 @@ export default React.createClass({
   /*
   propTypes: {
     newItems: React.PropTypes.array,
-    topItems: React.PropTypes.array  
+    topItems: React.PropTypes.array
   },
   */
-  
+
   getInitialState() {
     return {
       newItems: [
         {
-          color: "light-orange",
+          color: 'light-orange',
           date: 1444675856,
           id: 1,
           likes: 296,
           liked: false,
-          organizer: "Michael Wellner",
-          tags: [ "Mobile", "Cloud" ],
-          title: "Lorem Ipsum dolor",
-          town: "Munich",
-          type: "Hackathon"
+          organizer: 'Michael Wellner',
+          tags: [ 'Mobile', 'Cloud' ],
+          title: 'Lorem Ipsum dolor',
+          town: 'Munich',
+          type: 'Hackathon'
         },
         {
-          color: "turquoise",
+          color: 'turquoise',
           date: 1444675856,
           id: 1,
           liked: true,
           likes: 228,
-          organizer: "Jean Valjean",
-          tags: [ "Mobile", "Cloud" ],
-          title: "Lorem Ipsum dolor sit amet dolor",
-          town: "Paris",
-          type: "Ongoing"
+          organizer: 'Jean Valjean',
+          tags: [ 'Mobile', 'Cloud' ],
+          title: 'Lorem Ipsum dolor sit amet dolor',
+          town: 'Paris',
+          type: 'Ongoing'
         }
       ],
       topItems: [
         {
-          color: "light-orange",
+          color: 'light-orange',
           date: 1444675856,
           id: 1,
           likes: 296,
           liked: false,
-          organizer: "Michael Wellner",
-          tags: [ "Mobile", "Cloud" ],
-          title: "Lorem Ipsum dolor",
-          town: "Munich",
-          type: "Hackathon"
+          organizer: 'Michael Wellner',
+          tags: [ 'Mobile', 'Cloud' ],
+          title: 'Lorem Ipsum dolor',
+          town: 'Munich',
+          type: 'Hackathon'
         },
         {
-          color: "turquoise",
+          color: 'turquoise',
           date: 1444675856,
           id: 1,
           liked: true,
           likes: 228,
-          organizer: "Jean Valjean",
-          tags: [ "Mobile", "Cloud" ],
-          title: "Lorem Ipsum dolor sit amet dolor",
-          town: "Paris",
-          type: "Ongoing"
+          organizer: 'Jean Valjean',
+          tags: [ 'Mobile', 'Cloud' ],
+          title: 'Lorem Ipsum dolor sit amet dolor',
+          town: 'Paris',
+          type: 'Ongoing'
         }
       ]
-    }
+    };
   },
-  
+
   render() {
     return (
       <View>

@@ -6,7 +6,7 @@ export default React.createClass({
   propTypes: {
     children: React.PropTypes.any
   },
-  
+
   render() {
     return (
       <div className="view">
@@ -14,5 +14,5 @@ export default React.createClass({
       </div>
     );
   }
-  
+
 });
