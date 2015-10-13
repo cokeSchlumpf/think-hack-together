@@ -1,3 +1,8 @@
+/**
+ * Column module.
+ * @module components/col
+ */
+
 import React from 'react';
 import Router from 'react-router';
 import cx from 'classnames';

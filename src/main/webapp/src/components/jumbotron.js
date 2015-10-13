@@ -1,3 +1,8 @@
+/**
+ * Jumbotron module.
+ * @module components/jumbotron
+ */
+
 import React from 'react';
 import Router from 'react-router';
 import cx from 'classnames';

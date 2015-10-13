@@ -1,9 +1,15 @@
+/**
+ * Container module.
+ * @module components/container
+ */
+
 import React from 'react';
 import Router from 'react-router';
 import cx from 'classnames';
 
 /**
- * Simple class to create a Bootstrap container.
+ * @summary Simple class to create a Bootstrap container.
+ * @exports components/container
  */
 export default React.createClass({
 

@@ -30,16 +30,19 @@
     "eslint": "^1.6.0",
     "eslint-plugin-react": "^3.5.1",
     "jest-cli": "^0.5.10",
+    "jsdoc": "^3.3.3",
+    "jsdoc-babel": "^0.1.0",
     "less": "^2.5.3",
     "npm-watch": "^0.0.1"
   },
   "scripts": {
     "babel": "babel ./src --plugins object-assign --out-dir ./tmp/transpiled --source-maps inline",
     "browserify": "browserify ./tmp/transpiled/main.js > ./assets/js/main.min.js",
-    "build": "npm test && npm run lint && npm run build-dev && npm run css",
+    "build": "npm test && npm run lint && npm run build-dev && npm run css && npm run jsdoc",
     "build-dev": "npm run babel && npm run browserify && rm -rf ./tmp",
     "css": "lessc --clean-css ./src/style.less ./assets/css/style.min.css",
     "lint": "eslint --fix ./src",
+    "jsdoc": "jsdoc -c ./jsdoc.json -d ./../../../docs -r ./src",
     "test": "jest",
     "watch": "npm-watch"
   },
