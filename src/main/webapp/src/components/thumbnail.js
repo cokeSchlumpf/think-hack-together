@@ -9,6 +9,8 @@ import cx from 'classnames';
 import dateformat from 'dateformat';
 
 export default React.createClass({
+  displayName: 'thumbnail',
+
   propTypes: {
     color: React.PropTypes.string,
     date: React.PropTypes.number,
@@ -19,7 +21,9 @@ export default React.createClass({
     tags: React.PropTypes.array,
     title: React.PropTypes.string,
     town: React.PropTypes.string,
-    type: React.PropTypes.oneOf(['Hackathon', 'Ongoing'])
+    type: React.PropTypes.oneOf([ 'Hackathon', 'Ongoing' ]),
+
+    onLike: React.PropTypes.func
   },
 
   getClassName() {
@@ -42,19 +46,20 @@ export default React.createClass({
     return (
       <a href="#" className="likes" onClick={ this.handleLike }>
         <span className={ cx({
-        glyphicon: true,
-        'glyphicon-heart': this.props.liked,
-        'glyphicon-heart-empty': !this.props.liked
-      }) } />
+          glyphicon: true,
+          'glyphicon-heart': this.props.liked,
+          'glyphicon-heart-empty': !this.props.liked
+        }) } />
         &nbsp;{ this.props.likes }
       </a>
       );
   },
 
   handleLike(event) {
-    // TODO
-    console.log('like');
-    event.stopPropagation();
+    if (this.props.onLike) {
+      this.props.onLike(this.props.id);
+    }
+
     event.preventDefault();
   },
 

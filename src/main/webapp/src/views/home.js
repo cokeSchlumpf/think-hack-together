@@ -71,11 +71,14 @@ const ItemGroup = React.createClass({
 
   propTypes: {
     items: React.PropTypes.array,
-    title: React.PropTypes.string
+    title: React.PropTypes.string,
+
+    onLike: React.PropTypes.func
   },
 
   render() {
     const items = ListToMatrix(this.props.items, 2);
+    const self = this;
     return (
       <div>
         <h2>{ this.props.title}</h2>
@@ -87,7 +90,7 @@ const ItemGroup = React.createClass({
           row.map((column, colindex) => {
             return (
               <Col key={'col_' + colindex} md={ 6 }>
-                        <Thumbnail { ... column } />
+                        <Thumbnail { ... column } onLike={ self.props.onLike } />
                       </Col>
               );
           })
@@ -105,12 +108,6 @@ export default React.createClass({
   displayName: 'Home',
 
   mixins: [ StoreWatchMixin(IdeasStore) ],
-  /*
-  propTypes: {
-    newItems: React.PropTypes.array,
-    topItems: React.PropTypes.array
-  },
-  */
 
   contextTypes: {
     flux: React.PropTypes.any
@@ -128,11 +125,11 @@ export default React.createClass({
         <Header />
         <Container className="content">
           { this.state.ideasState.topItems && this.state.ideasState.topItems.length > 0 &&
-            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } />
+            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.likeIdea } />
           }
 
           { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
-            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } />
+            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.likeIdea } />
           }
         </Container>
         <Search showTitle />
