@@ -148,7 +148,7 @@
     "no-spaced-func": 1,
     "no-ternary": 0,
     "no-trailing-spaces": 1,
-    "no-underscore-dangle": 1,
+    "no-underscore-dangle": 0,
     "no-extra-parens": 0,
     "one-var": [1, "never"],
     "operator-assignment": [1, "never"],
@@ -176,7 +176,7 @@
 
     "max-depth": [2, 3],
     "max-len": 0,
-    "max-params": [2, 5],
+    "max-params": 0,
     "max-statements": 0,
     "no-bitwise": 0,
     "no-plusplus": 2,

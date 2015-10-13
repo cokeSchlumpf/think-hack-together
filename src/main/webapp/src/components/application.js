@@ -1,5 +1,7 @@
 import React from 'react';
+import Fluxxor from 'fluxxor';
 import { Router, Route, IndexRoute } from 'react-router';
+import { createHistory, useBasename } from 'history';
 
 import About from '../views/about';
 import Home from '../views/home';
@@ -10,11 +12,32 @@ import Submit from '../views/submit';
 import Navbar from './navbar';
 import Footer from './footer';
 
+import Actions from '../flux/actions/ideas';
+import StoreNames from '../flux/constants/_stores';
+import IdeasStore from '../flux/stores/ideas';
+
+import BaseURL from '../utils/baseURL';
+
+const flux = new Fluxxor.Flux({
+  [ StoreNames.IdeasStore ]: new IdeasStore()
+}, Actions);
+
 const App = React.createClass({
   displayName: 'App',
 
   propTypes: {
     children: React.PropTypes.any
+  },
+
+  childContextTypes: {
+    flux: React.PropTypes.any,
+    test: React.PropTypes.string
+  },
+
+  getChildContext() {
+    return {
+      flux: flux
+    };
   },
 
   render() {
@@ -28,10 +51,13 @@ const App = React.createClass({
   }
 });
 
+// We have to configure WLP to do that... not really simple...
+// const history = useBasename(createHistory)({ basename: BaseURL() });
+
 export default (
   <Router>
     <Route path="/" component={ App }>
-      <IndexRoute component={ Home } />
+      <IndexRoute component={ Home } name="home" />
       <Route path="ideas/list" component={ Ideas } name="ideas" />
       <Route path="ideas/:id/detail" component={ Idea } name="idea" />
       <Route path="ideas/add" component={ Submit } name="submit" />

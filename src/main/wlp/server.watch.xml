@@ -5,5 +5,5 @@
 
   <httpEndpoint id="defaultHttpEndpoint" httpPort="${Port}" host="*" />
 
-  <application id="${ProjectName}" location="${ProjectName}.war.xml" name="${ProjectName}" type="war" context-root="/" />
+  <application id="think-hack-together" location="think-hack-together.war.xml" name="think-hack-together" type="war" context-root="/" />
 </server>

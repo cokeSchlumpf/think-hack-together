@@ -4,12 +4,11 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 
 import Container from './container';
 
 export default React.createClass({
-
   displayName: 'Navbar',
 
   render() {
@@ -23,17 +22,16 @@ export default React.createClass({
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <Link className="navbar-brand" to="home">Think & Hack<span className="highlight"> together</span> JURI</Link>
+            <IndexLink className="navbar-brand" to="/">Think & Hack<span className="highlight"> together</span></IndexLink>
           </div>
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav pull-right">
-              <li className="active"><Link to="home">Home</Link></li>
-              <li><Link to="about">About & Feedback</Link></li>
+              <li><IndexLink to="/">Home</IndexLink></li>
+              <li><Link to="/about">About & Feedback</Link></li>
             </ul>
           </div>
         </Container>
       </nav>
     );
   }
-
 });

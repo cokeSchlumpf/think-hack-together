@@ -1,4 +1,5 @@
 import React from 'react';
+import { StoreWatchMixin } from 'fluxxor';
 import cx from 'classnames';
 
 import ListToMatrix from '../utils/listToMatrix';
@@ -11,7 +12,11 @@ import Thumbnail from '../components/thumbnail';
 import Search from '../components/search';
 import View from '../components/view';
 
+import { IdeasStore } from '../flux/constants/_stores';
+
 const Icon = React.createClass({
+  displayName: 'Home.Icon',
+
   propTypes: {
     className: React.PropTypes.string,
     text: React.PropTypes.string,
@@ -35,6 +40,8 @@ const Icon = React.createClass({
 });
 
 const Header = React.createClass({
+  displayName: 'Home.Header',
+
   render() {
     return (
       <Jumbotron>
@@ -58,6 +65,8 @@ const Header = React.createClass({
 });
 
 const ItemGroup = React.createClass({
+  displayName: 'Home.ItemGroup',
+
   propTypes: {
     items: React.PropTypes.array,
     title: React.PropTypes.string
@@ -91,6 +100,9 @@ const ItemGroup = React.createClass({
 });
 
 export default React.createClass({
+  displayName: 'Home',
+
+  mixins: [ StoreWatchMixin(IdeasStore) ],
   /*
   propTypes: {
     newItems: React.PropTypes.array,
@@ -98,60 +110,13 @@ export default React.createClass({
   },
   */
 
-  getInitialState() {
+  contextTypes: {
+    flux: React.PropTypes.any
+  },
+
+  getStateFromFlux: function() {
     return {
-      newItems: [
-        {
-          color: 'light-orange',
-          date: 1444675856,
-          id: 1,
-          likes: 296,
-          liked: false,
-          organizer: 'Michael Wellner',
-          tags: [ 'Mobile', 'Cloud' ],
-          title: 'Lorem Ipsum dolor',
-          town: 'Munich',
-          type: 'Hackathon'
-        },
-        {
-          color: 'turquoise',
-          date: 1444675856,
-          id: 1,
-          liked: true,
-          likes: 228,
-          organizer: 'Jean Valjean',
-          tags: [ 'Mobile', 'Cloud' ],
-          title: 'Lorem Ipsum dolor sit amet dolor',
-          town: 'Paris',
-          type: 'Ongoing'
-        }
-      ],
-      topItems: [
-        {
-          color: 'light-orange',
-          date: 1444675856,
-          id: 1,
-          likes: 296,
-          liked: false,
-          organizer: 'Michael Wellner',
-          tags: [ 'Mobile', 'Cloud' ],
-          title: 'Lorem Ipsum dolor',
-          town: 'Munich',
-          type: 'Hackathon'
-        },
-        {
-          color: 'turquoise',
-          date: 1444675856,
-          id: 1,
-          liked: true,
-          likes: 228,
-          organizer: 'Jean Valjean',
-          tags: [ 'Mobile', 'Cloud' ],
-          title: 'Lorem Ipsum dolor sit amet dolor',
-          town: 'Paris',
-          type: 'Ongoing'
-        }
-      ]
+      ideasState: this.context.flux.stores[IdeasStore].getState()
     };
   },
 
@@ -160,8 +125,13 @@ export default React.createClass({
       <View>
         <Header />
         <Container className="content">
-          { this.state.topItems && this.state.topItems.length > 0 && <ItemGroup title="Top Ideas" items={ this.state.topItems } /> }
-          { this.state.newItems && this.state.newItems.length > 0 && <ItemGroup title="New Ideas" items={ this.state.newItems } /> }
+          { this.state.ideasState.topItems && this.state.ideasState.topItems.length > 0 &&
+            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } />
+          }
+
+          { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
+            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } />
+          }
         </Container>
         <Search showTitle />
       </View>

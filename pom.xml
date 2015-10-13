@@ -18,7 +18,7 @@
     <jee.version>7.0</jee.version>
 
     <build.helper.maven.plugin>1.7</build.helper.maven.plugin>
-    <cf.maven.plugin.version>1.1.1</cf.maven.plugin.version>
+    <cf.maven.plugin.version>1.1.3</cf.maven.plugin.version>
     <liberty.maven.plugin.version>1.1-SNAPSHOT</liberty.maven.plugin.version>
     <maven.antrun.plugin.version>1.8</maven.antrun.plugin.version>
     <maven.clean.plugin.version>2.6.1</maven.clean.plugin.version>
@@ -343,7 +343,6 @@
 
               <bootstrapProperties>
                 <Port>9080</Port>
-                <ProjectName>${project.name}</ProjectName>
               </bootstrapProperties>
 
               <features>
@@ -354,6 +353,7 @@
             </configuration>
           </plugin>
 
+          <!--
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
@@ -380,15 +380,11 @@
                       <destFileName>derby.jar</destFileName>
                     </artifactItem>
                   </artifactItems>
-                  <!--
-                  <outputDirectory>${project.build.directory}/wars</outputDirectory>
-                  <overWriteReleases>false</overWriteReleases>
-                  <overWriteSnapshots>true</overWriteSnapshots>
-                  -->
                 </configuration>
               </execution>
             </executions>
           </plugin>
+        -->
         </plugins>
       </build>
     </profile>
@@ -467,7 +463,7 @@
 
       <activation>
         <property>
-          <name>!skipBluemixConfiguration</name>
+          <name>bluemix</name>
         </property>
       </activation>
 
@@ -480,12 +476,16 @@
             <executions>
               <execution>
                 <id>package liberty</id>
-                <phase>deploy</phase>
+                <phase>package</phase>
                 <goals>
                   <goal>package-server</goal>
                 </goals>
               </execution>
             </executions>
+
+            <configuration>
+              <configFile>src/main/wlp/server.bluemix.xml</configFile>
+            </configuration>
           </plugin>
 
           <plugin>
@@ -511,6 +511,7 @@
               <memory>512</memory>
               <diskQuota>1024</diskQuota>
               <healthCheckTimeout>60</healthCheckTimeout>
+              <!--
               <services>
                 <service>
                   <name>sqldb</name>
@@ -518,6 +519,7 @@
                   <plan>sqldb_free</plan>
                 </service>
               </services>
+            -->
             </configuration>
           </plugin>
         </plugins>
@@ -539,5 +541,4 @@
       </releases>
     </pluginRepository>
   </pluginRepositories>
-
 </project>

@@ -14,18 +14,19 @@ import Row from './row';
 
 export default React.createClass({
 
+  displayName: 'Search',
+
   propTypes: {
     searchstring: React.PropTypes.string,
-    showTitle: React.PropTypes.boolean
+    showTitle: React.PropTypes.bool
   },
 
   handleSearch(event) {
-    console.log(event);
+    // TODO
   },
 
   handleSumbit(event) {
     // TODO
-    console.log('submit');
     event.stopPropagation();
     event.preventDefault();
   },

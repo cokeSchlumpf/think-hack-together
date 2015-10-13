@@ -70,7 +70,7 @@ export default React.createClass({
 
         <div className="actions">
           <p>
-            { this.getLikes() }&nbsp;&nbsp;&nbsp;<Link to={ `ideas/${this.props.id}/detail` } className="more">
+            { this.getLikes() }&nbsp;&nbsp;&nbsp;<Link to={ `/ideas/${this.props.id}/detail` } className="more">
               <span className="glyphicon glyphicon-log-out"></span> Find out more
             </Link>
           </p>
