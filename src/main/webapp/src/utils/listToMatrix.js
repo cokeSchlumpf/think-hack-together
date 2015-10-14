@@ -1,6 +1,6 @@
 /**
  * Utility functions
- * @module utils/listToMatrix
+ * @module listToMatrix
  */
 
 /**

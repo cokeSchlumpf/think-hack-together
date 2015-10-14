@@ -1,4 +1,6 @@
-export default {
-  ADD_IDEA: 'ADD_IDEA',
-  LIKE_IDEA: 'LIKE_IDEA'
-};
+import ConstantsFactory from '../../utils/ConstantsFactory';
+
+export default ConstantsFactory([
+  'ADD_IDEA',
+  'LIKE_IDEA'
+]);
