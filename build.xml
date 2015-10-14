@@ -6,14 +6,6 @@
   </target>
 
   <target name="npm-tasks">
-    <!--
-    <copy todir="${project.build.directory}/${webapp.build.dir}">
-      <fileset dir="${basedir}/src/main/webapp" />
-      <filterchain>
-        <expandproperties />
-      </filterchain>
-    </copy>
-    -->
     <condition property="npm.executable" value="npm.cmd" else="npm">
       <os family="windows" />
     </condition>
