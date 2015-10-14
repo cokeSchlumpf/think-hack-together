@@ -1,4 +1,4 @@
-import StoreNames from '../flux/constants/_stores';
+import StoreNames from './_storeNames';
 import IdeasStore from './ideas';
 
 export default {

@@ -1,5 +1,5 @@
 import ConstantsFactory from '../../utils/ConstantsFactory';
 
-export const StoreNames = ConstantsFactory([
+export default ConstantsFactory([
   'IdeasStore'
 ]);

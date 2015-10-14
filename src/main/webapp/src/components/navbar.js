@@ -8,8 +8,6 @@ import { Link as RouterLink, IndexLink } from 'react-router';
 
 import Container from './container';
 
-const Test = Link;
-
 export default React.createClass({
   displayName: 'Navbar',
 

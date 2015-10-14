@@ -81,9 +81,9 @@ const ItemGroup = React.createClass({
     const items = ListToMatrix(this.props.items, 2);
     const self = this;
 
-    const cols = (col, colIndex) => {
+    const cols = (column, colIndex) => {
       return (
-        <Col key={ 'col_' + colindex } md={ 6 }>
+        <Col key={ 'col_' + colIndex } md={ 6 }>
           <Thumbnail { ... column } onLike={ self.props.onLike } />
         </Col>
         );
@@ -91,7 +91,7 @@ const ItemGroup = React.createClass({
 
     const rows = (row, rowIndex) => {
       return (
-        <Row key={ 'row_' + rowindex }>
+        <Row key={ 'row_' + rowIndex }>
           { row.map(cols) }
         </Row>
         );
@@ -127,9 +127,9 @@ export default React.createClass({
         <Header />
         <Container className="content">
           { this.state.ideasState.topItems && this.state.ideasState.topItems.length > 0 &&
-            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.likeIdea } /> }
+            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.ideasLike } /> }
           { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
-            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.likeIdea } /> }
+            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } /> }
         </Container>
         <Search showTitle />
       </View>

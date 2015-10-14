@@ -11,8 +11,9 @@
  */
 export default function(constants) {
   const result = {};
-  for (constant of constants) {
+  constants.forEach(constant => {
     result[constant] = constant;
-  }
+  });
+
   return result;
 }
