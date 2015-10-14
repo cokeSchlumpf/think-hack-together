@@ -13,13 +13,16 @@
         <expandproperties />
       </filterchain>
     </copy>
-  -->
-
-    <exec executable="npm" dir="${basedir}/src/main/webapp">
+    -->
+    <condition property="npm.executable" value="npm.cmd" else="npm">
+      <os family="windows" />
+    </condition>
+    
+    <exec executable="${npm.executable}" dir="${basedir}/src/main/webapp">
       <arg value="install"/>
     </exec>
 
-    <exec executable="npm" dir="${basedir}/src/main/webapp">
+    <exec executable="${npm.executable}" dir="${basedir}/src/main/webapp">
       <arg value="run"/>
       <arg value="build"/>
     </exec>
