@@ -35,7 +35,9 @@ const Icon = React.createClass({
     return (
       <div className={ this.getClassName() }>
         <h3>{ this.props.title }</h3>
-        <p>{ this.props.text }</p>
+        <p>
+          { this.props.text }
+        </p>
       </div>
       );
   }
@@ -56,8 +58,8 @@ const Header = React.createClass({
           <Col md={ 1 } />
           <Col md={ 7 } className="about">
             <p>
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-              At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
+              eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             </p>
           </Col>
         </Row>
@@ -81,24 +83,20 @@ const ItemGroup = React.createClass({
     const self = this;
     return (
       <div>
-        <h2>{ this.props.title}</h2>
-        {
-      items.map((row, rowindex) => {
-        return (
-          <Row key={'row_' + rowindex}>
-                {
-          row.map((column, colindex) => {
+        <h2>{ this.props.title }</h2>
+        { items.map((row, rowindex) => {
             return (
-              <Col key={'col_' + colindex} md={ 6 }>
+              <Row key={ 'row_' + rowindex }>
+                { row.map((column, colindex) => {
+                    return (
+                      <Col key={ 'col_' + colindex } md={ 6 }>
                         <Thumbnail { ... column } onLike={ self.props.onLike } />
                       </Col>
-              );
-          })
-          }
+                      );
+                  }) }
               </Row>
-          );
-      })
-      }
+              );
+          }) }
       </div>
       );
   }
@@ -107,7 +105,7 @@ const ItemGroup = React.createClass({
 export default React.createClass({
   displayName: 'Home',
 
-  mixins: [ StoreWatchMixin(IdeasStore) ],
+  mixins: [StoreWatchMixin(IdeasStore) ],
 
   contextTypes: {
     flux: React.PropTypes.any
@@ -125,12 +123,9 @@ export default React.createClass({
         <Header />
         <Container className="content">
           { this.state.ideasState.topItems && this.state.ideasState.topItems.length > 0 &&
-            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.likeIdea } />
-          }
-
+            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.likeIdea } /> }
           { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
-            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.likeIdea } />
-          }
+            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.likeIdea } /> }
         </Container>
         <Search showTitle />
       </View>

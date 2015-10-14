@@ -26,8 +26,12 @@ export default React.createClass({
           </div>
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav pull-right">
-              <li><IndexLink to="/">Home</IndexLink></li>
-              <li><Link to="/about">About & Feedback</Link></li>
+              <li>
+                <IndexLink to="/">Home</IndexLink>
+              </li>
+              <li>
+                <Link to="/about">About & Feedback</Link>
+              </li>
             </ul>
           </div>
         </Container>

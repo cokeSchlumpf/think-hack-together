@@ -21,7 +21,7 @@ export default React.createClass({
     tags: React.PropTypes.array,
     title: React.PropTypes.string,
     town: React.PropTypes.string,
-    type: React.PropTypes.oneOf([ 'Hackathon', 'Ongoing' ]),
+    type: React.PropTypes.oneOf(['Hackathon' , 'Ongoing' ]),
 
     onLike: React.PropTypes.func
   },
@@ -46,11 +46,11 @@ export default React.createClass({
     return (
       <a href="#" className="likes" onClick={ this.handleLike }>
         <span className={ cx({
-          glyphicon: true,
-          'glyphicon-heart': this.props.liked,
-          'glyphicon-heart-empty': !this.props.liked
-        }) } />
-        &nbsp;{ this.props.likes }
+                            glyphicon: true,
+                            'glyphicon-heart': this.props.liked,
+                            'glyphicon-heart-empty': !this.props.liked
+                          }) } /> &nbsp;
+        { this.props.likes }
       </a>
       );
   },
@@ -67,22 +67,23 @@ export default React.createClass({
     return (
       <div className={ this.getClassName() }>
         <ul className="tags">
-          <li className="author">{ this.getActivityTypeAndDate() }</li>
-          {
-      this.props.tags.map((tag, index) => {
-        return <li key={'li_' + index}>{ tag }</li>;
-      })
-      }
+          <li className="author">
+            { this.getActivityTypeAndDate() }
+          </li>
+          { this.props.tags.map((tag, index) => {
+              return <li key={ 'li_' + index }>
+                       { tag }
+                     </li>;
+            }) }
         </ul>
-
         <div className="caption">
           <h3><a href="#">{ this.props.title }</a></h3>
         </div>
-
         <div className="actions">
           <p>
-            { this.getLikes() }&nbsp;&nbsp;&nbsp;<Link to={ `/ideas/${this.props.id}/detail` } className="more">
-              <span className="glyphicon glyphicon-log-out"></span> Find out more
+            { this.getLikes() }&nbsp;&nbsp;&nbsp;
+            <Link to={ `/ideas/${this.props.id}/detail` } className="more">
+            <span className="glyphicon glyphicon-log-out"></span> Find out more
             </Link>
           </p>
         </div>

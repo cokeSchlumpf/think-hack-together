@@ -43,10 +43,10 @@ const App = React.createClass({
   render() {
     return (
       <div>
-          <Navbar />
-          { this.props.children }
-          <Footer />
-        </div>
+        <Navbar />
+        { this.props.children }
+        <Footer />
+      </div>
       );
   }
 });
@@ -56,12 +56,12 @@ const App = React.createClass({
 
 export default (
 <Router>
-    <Route path="/" component={ App }>
-      <IndexRoute component={ Home } name="home" />
-      <Route path="ideas/list" component={ Ideas } name="ideas" />
-      <Route path="ideas/:id/detail" component={ Idea } name="idea" />
-      <Route path="ideas/add" component={ Submit } name="submit" />
-      <Route path="about" component={ About } name="about" />
-    </Route>
-  </Router>
+  <Route path="/" component={ App }>
+    <IndexRoute component={ Home } name="home" />
+    <Route path="ideas/list" component={ Ideas } name="ideas" />
+    <Route path="ideas/:id/detail" component={ Idea } name="idea" />
+    <Route path="ideas/add" component={ Submit } name="submit" />
+    <Route path="about" component={ About } name="about" />
+  </Route>
+</Router>
 );
