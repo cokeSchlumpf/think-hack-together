@@ -12,15 +12,12 @@ import Submit from '../views/submit';
 import Navbar from './navbar';
 import Footer from './footer';
 
-import Actions from '../flux/actions/ideas';
-import StoreNames from '../flux/constants/_stores';
-import IdeasStore from '../flux/stores/ideas';
+import Actions from '../flux/actions/_actions';
+import Stores from '../flux/stores/_stores';
 
 import BaseURL from '../utils/baseURL';
 
-const flux = new Fluxxor.Flux({
-  [ StoreNames.IdeasStore ]: new IdeasStore()
-}, Actions);
+const flux = new Fluxxor.Flux(Stores, Actions);
 
 const App = React.createClass({
   displayName: 'App',
@@ -30,8 +27,7 @@ const App = React.createClass({
   },
 
   childContextTypes: {
-    flux: React.PropTypes.any,
-    test: React.PropTypes.string
+    flux: React.PropTypes.any
   },
 
   getChildContext() {

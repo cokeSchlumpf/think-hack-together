@@ -1,7 +1,7 @@
 import Constants from '../constants/ideas';
 
 export default {
-  addIdea(color, date, organizer, tags, title, town, type) {
+  ideasAdd(color, date, organizer, tags, title, town, type) {
     this.dispatch(Constants.ADD_IDEA, {
       color: color,
       date: date,
@@ -13,7 +13,7 @@ export default {
     });
   },
 
-  likeIdea(id) {
+  ideasLike(id) {
     this.dispatch(Constants.LIKE_IDEA, {
       id: id
     });

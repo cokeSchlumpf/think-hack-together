@@ -12,7 +12,7 @@ import Thumbnail from '../components/thumbnail';
 import Search from '../components/search';
 import View from '../components/view';
 
-import { IdeasStore } from '../flux/constants/_stores';
+import { IdeasStore } from '../flux/stores/_storeNames';
 
 const Icon = React.createClass({
   displayName: 'Home.Icon',
