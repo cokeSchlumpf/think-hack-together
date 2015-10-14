@@ -46,7 +46,7 @@
     "build-dev": "npm run format && npm run babel && npm run browserify && rm -rf ./tmp",
     "css": "lessc --clean-css ./src/style.less ./assets/css/style.min.css",
     "format": "esformatter -i ./src/**/*.js",
-    "jsdoc": "jsdoc -c ./jsdoc.json -d ./../../../docs -r ./src",
+    "jsdoc": "jsdoc -c ./.jsdoc -d ./../../../docs -r ./src",
     "lint": "eslint --fix ./src",
     "test": "jest",
     "watch": "npm-watch"
