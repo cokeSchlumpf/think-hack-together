@@ -80,22 +80,27 @@ const ItemGroup = React.createClass({
   render() {
     const items = ListToMatrix(this.props.items, 2);
     const self = this;
+
+    const cols = (col, colIndex) => {
+      return (
+        <Col key={ 'col_' + colindex } md={ 6 }>
+          <Thumbnail { ... column } onLike={ self.props.onLike } />
+        </Col>
+        );
+    };
+
+    const rows = (row, rowIndex) => {
+      return (
+        <Row key={ 'row_' + rowindex }>
+          { row.map(cols) }
+        </Row>
+        );
+    };
+
     return (
       <div>
         <h2>{ this.props.title }</h2>
-        { items.map((row, rowindex) => {
-            return (
-              <Row key={ 'row_' + rowindex }>
-                { row.map((column, colindex) => {
-                    return (
-                      <Col key={ 'col_' + colindex } md={ 6 }>
-                        <Thumbnail { ... column } onLike={ self.props.onLike } />
-                      </Col>
-                      );
-                  }) }
-              </Row>
-              );
-          }) }
+        { items.map(rows) }
       </div>
       );
   }

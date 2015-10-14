@@ -43,7 +43,7 @@
     "babel": "babel ./src --plugins object-assign --out-dir ./tmp/transpiled --source-maps inline",
     "browserify": "browserify ./tmp/transpiled/main.js > ./assets/js/main.min.js",
     "build": "npm test && npm run lint && npm run build-dev && npm run css && npm run jsdoc",
-    "build-dev": "npm run esformatter && npm run babel && npm run browserify && rm -rf ./tmp",
+    "build-dev": "npm run format && npm run babel && npm run browserify && rm -rf ./tmp",
     "css": "lessc --clean-css ./src/style.less ./assets/css/style.min.css",
     "format": "esformatter -i ./src/**/*.js",
     "jsdoc": "jsdoc -c ./jsdoc.json -d ./../../../docs -r ./src",
