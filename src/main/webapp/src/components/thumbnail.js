@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router';
+import { Link as RouterLink } from 'react-router';
 import cx from 'classnames';
 import dateformat from 'dateformat';
 
@@ -21,7 +21,7 @@ export default React.createClass({
     tags: React.PropTypes.array,
     title: React.PropTypes.string,
     town: React.PropTypes.string,
-    type: React.PropTypes.oneOf(['Hackathon' , 'Ongoing' ]),
+    type: React.PropTypes.oneOf([ 'Hackathon', 'Ongoing' ]),
 
     onLike: React.PropTypes.func
   },
@@ -43,13 +43,14 @@ export default React.createClass({
   },
 
   getLikes() {
+    const className = cx({
+      glyphicon: true,
+      'glyphicon-heart': this.props.liked,
+      'glyphicon-heart-empty': !this.props.liked
+    });
+
     return (
-      <a href="#" className="likes" onClick={ this.handleLike }>
-        <span className={ cx({
-                            glyphicon: true,
-                            'glyphicon-heart': this.props.liked,
-                            'glyphicon-heart-empty': !this.props.liked
-                          }) } /> &nbsp;
+      <a href="#" className="likes" onClick={ this.handleLike }><span className={ className } /> &nbsp;
         { this.props.likes }
       </a>
       );
@@ -64,27 +65,34 @@ export default React.createClass({
   },
 
   render() {
+    const createLi = (tag, index) => {
+      return (
+        <li key={ 'li_' + index }>
+          { tag }
+        </li>
+        );
+    };
+
+    const detailURL = `/ideas/${this.props.id}/detail`;
+
     return (
       <div className={ this.getClassName() }>
         <ul className="tags">
           <li className="author">
             { this.getActivityTypeAndDate() }
           </li>
-          { this.props.tags.map((tag, index) => {
-              return <li key={ 'li_' + index }>
-                       { tag }
-                     </li>;
-            }) }
+          { this.props.tags.map(createLi) }
         </ul>
         <div className="caption">
           <h3><a href="#">{ this.props.title }</a></h3>
         </div>
         <div className="actions">
           <p>
-            { this.getLikes() }&nbsp;&nbsp;&nbsp;
-            <Link to={ `/ideas/${this.props.id}/detail` } className="more">
-            <span className="glyphicon glyphicon-log-out"></span> Find out more
-            </Link>
+            { this.getLikes() } &nbsp;&nbsp;&nbsp;
+            <RouterLink to={ detailURL } className="more">
+              <span className="glyphicon glyphicon-log-out" />
+              <span>&nbsp; Find out more</span>
+            </RouterLink>
           </p>
         </div>
       </div>

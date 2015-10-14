@@ -42,11 +42,17 @@ export default React.createClass({
           </Row> }
         <Row className="search">
           <Col md={ 9 }>
-            <input type="text" className="form-control" id="exampleInputEmail3" placeholder="Search for ideas" defaultValue={ this.props.searchstring } onChange={ this.handleSearch }
-            />
+            <input type="text"
+              className="form-control"
+              id="exampleInputEmail3"
+              placeholder="Search for ideas"
+              defaultValue={ this.props.searchstring }
+              onChange={ this.handleSearch } />
           </Col>
           <Col md={ 3 }>
-            <button type="button" className="btn btn-primary" onClick={ this.handleSubmit }>Submit new idea</button>
+            <button type="button" className="btn btn-primary" onClick={ this.handleSubmit }>
+              Submit new idea
+            </button>
           </Col>
         </Row>
       </Container>

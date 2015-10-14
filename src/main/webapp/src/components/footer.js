@@ -13,6 +13,8 @@ import Row from './row';
 
 export default React.createClass({
 
+  displayName: 'footer',
+
   render() {
     return (
       <Jumbotron className="footer">
@@ -22,11 +24,21 @@ export default React.createClass({
           </Col>
           <Col md={ 6 } className="links">
             <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Search</a></li>
-              <li><a href="#">Submit</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Feedback</a></li>
+              <li>
+                <a href="#">Home</a>
+              </li>
+              <li>
+                <a href="#">Search</a>
+              </li>
+              <li>
+                <a href="#">Submit</a>
+              </li>
+              <li>
+                <a href="#">About</a>
+              </li>
+              <li>
+                <a href="#">Feedback</a>
+              </li>
             </ul>
           </Col>
         </Row>
