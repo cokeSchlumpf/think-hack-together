@@ -22,7 +22,7 @@ export default Fluxxor.createStore({
 
   onLike(payload) {
     this.likes = this.likes.map(like => {
-      if (like.)
+      // if (like.)
     });
   }
 });

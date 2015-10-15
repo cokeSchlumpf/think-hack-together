@@ -13,6 +13,7 @@ import Container from './container';
  * Simple class to create a Bootstrap container.
  */
 export default React.createClass({
+  displayName: 'Col',
 
   propTypes: {
     children: React.PropTypes.any,

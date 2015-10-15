@@ -11,6 +11,7 @@ import { Link } from 'react-router';
  * @exports components/view
  */
 export default React.createClass({
+  displayName: 'View',
 
   propTypes: {
     children: React.PropTypes.any
