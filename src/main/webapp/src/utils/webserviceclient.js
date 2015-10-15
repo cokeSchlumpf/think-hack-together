@@ -176,7 +176,7 @@ export default class WebServiceClient {
    * @param {object} entity the defined entity to be created.
    * @returns {object} a JSON entity.
    */
-  create(entity) {
+  create(entity, headers = {}) {
     const args = {
       data: entity,
       headers: headers
@@ -190,7 +190,7 @@ export default class WebServiceClient {
    * @param {string} id the defined entity id.
    * @returns {object} a JSON entity.
    */
-  read(id) {
+  read(id, headers = {}) {
     const args = {
       id: id,
       headers: headers
@@ -204,7 +204,7 @@ export default class WebServiceClient {
    * @param {object} entity the defined entity id to be updated.
    * @returns {object} a JSON entity.
    */
-  update(entity) {
+  update(entity, headers = {}) {
     const args = {
       data: entity,
       headers: headers
@@ -218,7 +218,7 @@ export default class WebServiceClient {
    * @param {string} id the defined entity id to be deleted.
    * @returns {object} a JSON entity.
    */
-  delete(id) {
+  delete(id, headers = {}) {
     const args = {
       id: id,
       headers: headers
