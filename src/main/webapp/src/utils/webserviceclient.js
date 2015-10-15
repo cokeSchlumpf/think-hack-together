@@ -113,6 +113,7 @@ export default class WebServiceClient {
     };
 
     const req = func.apply(this.client.methods, [ Object.assign({}, clientConfig, args), (responseData, response) => {
+      console.log(response);
       handler.handleSuccess(responseData, response);
     } ]);
 
@@ -192,7 +193,9 @@ export default class WebServiceClient {
    */
   read(id, headers = {}) {
     const args = {
-      id: id,
+      path: {
+        id: id
+      },
       headers: headers
     };
 
@@ -207,6 +210,9 @@ export default class WebServiceClient {
   update(entity, headers = {}) {
     const args = {
       data: entity,
+      path: {
+        id: id
+      },
       headers: headers
     };
 
@@ -220,7 +226,9 @@ export default class WebServiceClient {
    */
   delete(id, headers = {}) {
     const args = {
-      id: id,
+      path: {
+        id: id
+      },
       headers: headers
     };
 

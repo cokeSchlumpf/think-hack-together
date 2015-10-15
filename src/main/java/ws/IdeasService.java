@@ -3,6 +3,7 @@ package ws;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -20,6 +21,8 @@ public class IdeasService {
 
     @DELETE
     @Path("{id}")
+    @Consumes(MediaType.WILDCARD)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") int id) {
         Response result = null;
 
@@ -28,8 +31,10 @@ public class IdeasService {
 		ideas.add(new Idea(2, "light-orange", new Date(), 120, "Kevin", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Mumbai", "Hackathon"));
 		ideas.add(new Idea(3, "light-orange", new Date(), 120, "Jean Valjean", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Paris", "Hackathon"));
 		
-        if (ideas.contains(id)) {
-            result = Response.ok().build();
+		Optional<Idea> found = ideas.stream().filter(idea -> idea.getId() == id).findFirst();
+		
+        if (found.isPresent()) {
+            result = Response.ok(found.get()).build();
         } else {
             result = Response.status(Response.Status.NOT_FOUND).entity("Idea not found for ID: " + id).build();
         }

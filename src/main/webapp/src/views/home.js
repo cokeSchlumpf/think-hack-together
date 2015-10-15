@@ -113,12 +113,22 @@ export default React.createClass({
 
   mixins: [ StoreWatchMixin(IdeasStore) ],
 
+  propTypes: {
+    ideasService: React.PropTypes.any
+  },
+
+  getDefaultProps() {
+    return {
+      ideasService: new WebServiceClient(this, 'api/ideas')
+    };
+  },
+
   contextTypes: {
     flux: React.PropTypes.any
   },
 
   componentDidMount() {
-    (new WebServiceClient(this, 'api/ideas')).list().onSuccess((data, response) => {
+    this.props.ideasService.list().onSuccess((data, response) => {
       this.context.flux.actions.ideasInit(data);
     });
   },
@@ -129,15 +139,21 @@ export default React.createClass({
     };
   },
 
+  handleDelete(id) {
+    this.props.ideasService.delete(id).onSuccess(() => {
+      this.context.flux.actions.ideasDelete(id);
+    });
+  },
+
   render() {
     return (
       <View>
         <Header />
         <Container className="content">
           { this.state.ideasState.topItems && this.state.ideasState.topItems.length > 0 &&
-            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.context.flux.actions.ideasDelete } /> }
+            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete } /> }
           { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
-            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.context.flux.actions.ideasDelete } /> }
+            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete } /> }
         </Container>
         <Search showTitle />
       </View>
