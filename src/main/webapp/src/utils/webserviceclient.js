@@ -127,13 +127,13 @@ export default class WebServiceClient {
   }
 
   /**
-   *
+   * Lists a number of entities defined by start, count, and sortation.
    * @param {number} start is the first delivered entities.
    * @param {number} count is the number of delivered entities.
    * @param {string} orderBy is the name of the column the entities should be ordered. An array of strings will be transformed to a comma-speperated string.
    * @param {boolean} asc identifies the sorting order, default is true.
    * @param {object} where is a map where you define options to filter your entities. E.g. { "foo": "*bar" }.
-   * @param {headers} is a map if headers past to ther server.
+   * @param {headers} headers is a map if headers past to ther server.
    * @returns {array} a list of JSON entities.
    */
   list(start = 0, count = 0, orderBy = '', asc = true, where = {}, headers = {}) {
@@ -169,5 +169,61 @@ export default class WebServiceClient {
     };
 
     return this._callMethod(this.client.methods.list, args);
+  }
+
+  /**
+   * Creates an entity.
+   * @param {object} entity the defined entity to be created.
+   * @returns {object} a JSON entity.
+   */
+  create(entity, headers = {}) {
+    const args = {
+      data: entity,
+      headers: headers
+    };
+
+    return this._callMethod(this.client.methods.create, args);
+  }
+
+  /**
+   * Reads an entity defined by id.
+   * @param {string} id the defined entity id.
+   * @returns {object} a JSON entity.
+   */
+  read(id, headers = {}) {
+    const args = {
+      id: id,
+      headers: headers
+    };
+
+    return this._callMethod(this.client.methods.read, args);
+  }
+
+  /**
+   * Updates an entity defined by id.
+   * @param {object} entity the defined entity id to be updated.
+   * @returns {object} a JSON entity.
+   */
+  update(entity, headers = {}) {
+    const args = {
+      data: entity,
+      headers: headers
+    };
+
+    return this._callMethod(this.client.methods.update, args);
+  }
+
+  /**
+   * Deletes an entity defined by id.
+   * @param {string} id the defined entity id to be deleted.
+   * @returns {object} a JSON entity.
+   */
+  delete(id, headers = {}) {
+    const args = {
+      id: id,
+      headers: headers
+    };
+
+    return this._callMethod(this.client.methods.delete, args);
   }
 }
