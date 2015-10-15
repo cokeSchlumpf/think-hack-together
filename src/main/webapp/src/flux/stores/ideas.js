@@ -30,7 +30,8 @@ export default Fluxxor.createStore({
   },
 
   onInit(payload) {
-    this.ideas = payload;
+    this.ideas.newItems = payload;
+    this.ideas.topItems = payload;
     this.emit('change');
   },
 

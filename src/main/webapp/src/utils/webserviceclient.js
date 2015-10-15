@@ -12,29 +12,30 @@ class WebServiceHandler {
 
   _callFunction(func) {
     if (func) {
-      arguments.shift();
-      func.apply(this.owner, arguments);
+      const args = Object.keys(arguments).map(key => arguments[key]);
+      args.shift();
+      func.apply(this.owner, args);
     }
 
     return this;
   }
 
   handleError(err) {
-    return _callFunction(this.onError, err);
+    return this._callFunction(this._onError, err);
   }
 
   handleSuccess(data, response) {
-    return _callFunction(this.onSuccess, data, response);
+    return this._callFunction(this._onSuccess, data, response);
   }
 
   handleRequestTimeout(req) {
-    _callFunction(this.onRequestTimeout, req);
-    return _callFunction(this.onTimeout, req);
+    this._callFunction(this._onRequestTimeout, req);
+    return this._callFunction(this._onTimeout, req);
   }
 
   handleResponseTimeout(res) {
-    _callFunction(this.onResponseTimeout, res);
-    return _callFunction(this.onTimeout, res);
+    this._callFunction(this._onResponseTimeout, res);
+    return this._callFunction(this._onTimeout, res);
   }
 
   onError(func) {
@@ -68,16 +69,18 @@ export default class WebServiceClient {
 
   constructor(owner, servicePath, requestConfig, responseConfig) {
     const serviceURL = `${URLUtil.baseURL()}/${servicePath}`;
-    const serviceItemURL = `${baseURL}/\${id}`;
+    const serviceItemURL = `${serviceURL}/\${id}`;
 
     this.owner = owner;
 
     if (!requestConfig) {
       this.requestConfig = {
+        /*
         timeout: 10000,
         noDelay: true,
         keepAlive: true,
         keepAliveDelay: 10000
+        */
       };
     } else {
       this.requestConfig = requestConfig;
@@ -85,7 +88,9 @@ export default class WebServiceClient {
 
     if (!responseConfig) {
       this.responseConfig = {
+        /*
         timeout: 10000
+        */
       };
     } else {
       this.responseConfig = responseConfig;
@@ -93,32 +98,29 @@ export default class WebServiceClient {
 
     this.client = new Client();
 
-    client.registerMethod('list', serviceURL, 'GET');
-    client.registerMethod('create', serviceURL, 'POST');
-    client.registerMethod('read', serviceItemURL, 'GET');
-    client.registerMethod('update', serviceItemURL, 'PUT');
-    client.registerMethod('delete', serviceItemURL, 'DELETE');
+    this.client.registerMethod('list', serviceURL, 'GET');
+    this.client.registerMethod('create', serviceURL, 'POST');
+    this.client.registerMethod('read', serviceItemURL, 'GET');
+    this.client.registerMethod('update', serviceItemURL, 'PUT');
+    this.client.registerMethod('delete', serviceItemURL, 'DELETE');
   }
 
   _callMethod(func, args) {
-    const handler = new WebServiceHandler(owner);
+    const handler = new WebServiceHandler(this.owner);
     const clientConfig = {
       requestConfig: this.requestConfig,
       responseConfig: this.responseConfig
     };
 
-    const req = func.apply(this.clients.methods, [ Object.assign({}, clientConfig, args), (responseData, response) => {
-      console.log(responseData);
-      console.log(response);
-
+    const req = func.apply(this.client.methods, [ Object.assign({}, clientConfig, args), (responseData, response) => {
       handler.handleSuccess(responseData, response);
     } ]);
 
     req.on('error', handler.handleError);
     req.on('responseTimeout', handler.handleResponseTimeout);
-    req.on('requestTimeout', req => {
-      handler.handleRequestTimeout(req);
-      req.abort();
+    req.on('requestTimeout', request => {
+      handler.handleRequestTimeout(request);
+      request.abort();
     });
 
     return handler;
@@ -166,6 +168,6 @@ export default class WebServiceClient {
       headers: headers
     };
 
-    this.client.methods.list(data);
+    return this._callMethod(this.client.methods.list, args);
   }
 }

@@ -35,7 +35,7 @@ export default React.createClass({
   },
 
   getActivityTypeAndDate() {
-    const date = dateformat(new Date(this.props.date * 1000), 'dddd, mmm dS, yyyy');
+    const date = dateformat(new Date(this.props.date), 'dddd, mmm dS, yyyy');
 
     const type = this.props.type === 'Ongoing' ? 'Ongoing activity started on' : 'Hackathon on';
 

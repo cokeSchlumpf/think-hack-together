@@ -118,8 +118,6 @@ export default React.createClass({
 
   componentDidMount() {
     (new WebServiceClient(this, 'api/ideas')).list().onSuccess((data, response) => {
-      console.log(data);
-      console.log(response);
       this.context.flux.actions.ideasInit(data);
     });
   },
