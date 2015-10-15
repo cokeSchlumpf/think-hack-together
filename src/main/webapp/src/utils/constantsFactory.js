@@ -9,7 +9,12 @@
  * @constructor
  * @param {array} constants List of strings for constants names.
  */
-export default function(constants) {
+export default function(_constants) {
+  let constants = _constants;
+  if (Object.prototype.toString.call(constants) !== '[object Array]') {
+    constants = Object.keys(arguments).map(key => arguments[key]);
+  }
+
   const result = {};
   constants.forEach(constant => {
     result[constant] = constant;

@@ -1,12 +1,8 @@
 import Fluxxor from 'fluxxor';
-
 import Constants from '../constants/ideas';
 
 export default Fluxxor.createStore({
   initialize() {
-    this.client = new Client();
-    this.client.registerMethod('listIdeas', URLUtil.baseURL() + '/api/ideas', 'GET');
-
     this.ideas = {
       newItems: [ {
         color: 'light-orange',
@@ -72,10 +68,6 @@ export default Fluxxor.createStore({
   },
 
   getState() {
-    this.client.methods.listIdeas({ }, (data, response) => {
-
-    });
-
     return this.ideas;
   },
 
