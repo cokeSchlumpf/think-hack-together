@@ -113,7 +113,6 @@ export default class WebServiceClient {
     };
 
     const req = func.apply(this.client.methods, [ Object.assign({}, clientConfig, args), (responseData, response) => {
-      console.log(response);
       handler.handleSuccess(responseData, response);
     } ]);
 

@@ -12,6 +12,7 @@ import cx from 'classnames';
  * @exports components/container
  */
 export default React.createClass({
+  displayName: 'Container',
 
   propTypes: {
     children: React.PropTypes.any,

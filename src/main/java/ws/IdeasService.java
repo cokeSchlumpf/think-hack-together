@@ -8,6 +8,8 @@ import java.util.Optional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,7 +20,64 @@ import model.Idea;
 
 @Path("ideas")
 public class IdeasService {
+	
+	private List<Idea> ideas = new ArrayList<Idea>() {{
+		add(new Idea(1, "light-orange", new Date(), 120, "Tom Weber", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Munich", "Hackathon"));
+		add(new Idea(2, "light-orange", new Date(), 120, "Kevin", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Mumbai", "Hackathon"));
+		add(new Idea(3, "light-orange", new Date(), 120, "Jean Valjean", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Paris", "Hackathon"));
+	}};
+	
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response create(Idea entity) {
+    	Response result = null;
+    	
+    	entity.setId(this.ideas.size() + 1);
+    	this.ideas.add(entity);
+    	
+    	result = Response
+    			.status(Response.Status.CREATED)
+    			.entity(entity).build();
+    	
+        return result;
+    }
 
+    @GET
+    @Path("{id}")
+    @Consumes(MediaType.WILDCARD)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response get(@PathParam("id") int id) {
+        Response result = null;
+
+		Optional<Idea> found = this.ideas.stream().filter(idea -> idea.getId() == id).findFirst();
+		
+        if (found.isPresent()) {
+            result = Response.ok(found.get()).build();
+        } else {
+            result = Response.status(Response.Status.NOT_FOUND).entity("Idea not found for ID: " + id).build();
+        }
+
+        return result;
+    }
+    
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response update(final Idea entity) {
+        Response result = null;
+
+		Optional<Idea> found = this.ideas.stream().filter(idea -> idea.getId() == entity.getId()).findFirst();
+		
+        if (found.isPresent()) {
+            result = Response.ok(found.get()).build();
+        } else {
+            result = Response.status(Response.Status.NOT_FOUND).entity("Idea not found for ID: " + entity.getId()).build();
+        }
+        
+        return result;
+    }
+    
     @DELETE
     @Path("{id}")
     @Consumes(MediaType.WILDCARD)
@@ -26,12 +85,7 @@ public class IdeasService {
     public Response delete(@PathParam("id") int id) {
         Response result = null;
 
-		List<Idea> ideas = new ArrayList<>();
-		ideas.add(new Idea(1, "light-orange", new Date(), 120, "Tom Weber", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Munich", "Hackathon"));
-		ideas.add(new Idea(2, "light-orange", new Date(), 120, "Kevin", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Mumbai", "Hackathon"));
-		ideas.add(new Idea(3, "light-orange", new Date(), 120, "Jean Valjean", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Paris", "Hackathon"));
-		
-		Optional<Idea> found = ideas.stream().filter(idea -> idea.getId() == id).findFirst();
+		Optional<Idea> found = this.ideas.stream().filter(idea -> idea.getId() == id).findFirst();
 		
         if (found.isPresent()) {
             result = Response.ok(found.get()).build();
@@ -43,14 +97,10 @@ public class IdeasService {
     }
 	
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.WILDCARD)
+	@Produces(MediaType.APPLICATION_JSON)	
 	public List<Idea> getIdeas() {
-		List<Idea> result = new ArrayList<>();
-		result.add(new Idea(1, "light-orange", new Date(), 120, "Tom Weber", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Munich", "Hackathon"));
-		result.add(new Idea(2, "light-orange", new Date(), 120, "Kevin", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Mumbai", "Hackathon"));
-		result.add(new Idea(3, "light-orange", new Date(), 120, "Jean Valjean", new String[] { "Mobile", "Cloud" }, "Lorem Ipsum", "Paris", "Hackathon"));
-		return result;
+		return this.ideas;
 	}
 	
 }

@@ -7,6 +7,8 @@ import Container from '../components/container';
 import View from '../components/view';
 
 export default React.createClass({
+  displayName: 'Idea',
+
   render() {
     return (
       <View>
