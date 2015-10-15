@@ -1,6 +1,5 @@
 import Fluxxor from 'fluxxor';
 import Constants from '../constants/ideas';
-import WebServiceClient from '../../utils/webserviceclient';
 
 export default Fluxxor.createStore({
   initialize() {
@@ -12,7 +11,8 @@ export default Fluxxor.createStore({
     this.bindActions(
       Constants.INIT, this.onInit,
       Constants.ADD_IDEA, this.onAddIdea,
-      Constants.LIKE_IDEA, this.onLikeIdea
+      Constants.LIKE_IDEA, this.onLikeIdea,
+      Constants.DELETE_IDEA, this.onDeleteIdea
     );
   },
 
@@ -38,6 +38,12 @@ export default Fluxxor.createStore({
   onAddIdea(payload) {
     // const id = this._nextId();
     // this.getState()[id] = payload;
+    this.emit('change');
+  },
+
+  onDeleteIdea(payload) {
+    this.ideas.newItems = this.ideas.newItems.filter((idea) => !(idea.id === payload.id));
+    this.ideas.topItems = this.ideas.topItems.filter((idea) => !(idea.id === payload.id));
     this.emit('change');
   },
 

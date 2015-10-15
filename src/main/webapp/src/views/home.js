@@ -75,7 +75,8 @@ const ItemGroup = React.createClass({
     items: React.PropTypes.array,
     title: React.PropTypes.string,
 
-    onLike: React.PropTypes.func
+    onLike: React.PropTypes.func,
+    onDelete: React.PropTypes.func
   },
 
   render() {
@@ -85,7 +86,7 @@ const ItemGroup = React.createClass({
     const cols = (column, colIndex) => {
       return (
         <Col key={ 'col_' + colIndex } md={ 6 }>
-          <Thumbnail { ... column } onLike={ self.props.onLike } />
+          <Thumbnail { ... column } onLike={ self.props.onLike } onDelete={ self.props.onDelete } />
         </Col>
         );
     };
@@ -134,9 +135,9 @@ export default React.createClass({
         <Header />
         <Container className="content">
           { this.state.ideasState.topItems && this.state.ideasState.topItems.length > 0 &&
-            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.ideasLike } /> }
+            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.context.flux.actions.ideasDelete } /> }
           { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
-            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } /> }
+            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.context.flux.actions.ideasDelete } /> }
         </Container>
         <Search showTitle />
       </View>

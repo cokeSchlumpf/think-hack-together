@@ -23,6 +23,7 @@ export default React.createClass({
     town: React.PropTypes.string,
     type: React.PropTypes.oneOf([ 'Hackathon', 'Ongoing' ]),
 
+    onDelete: React.PropTypes.func,
     onLike: React.PropTypes.func
   },
 
@@ -54,6 +55,14 @@ export default React.createClass({
         { this.props.likes }
       </a>
       );
+  },
+
+  handleDelete(event) {
+    if (this.props.onDelete) {
+      this.props.onDelete(this.props.id);
+    }
+
+    event.preventDefault();
   },
 
   handleLike(event) {
@@ -92,7 +101,8 @@ export default React.createClass({
             <RouterLink to={ detailURL } className="more">
               <span className="glyphicon glyphicon-log-out" />
               <span>&nbsp; Find out more</span>
-            </RouterLink>
+            </RouterLink> &nbsp;&nbsp;&nbsp;
+            <a href="#" onClick={ this.handleDelete }>Delete</a>
           </p>
         </div>
       </div>

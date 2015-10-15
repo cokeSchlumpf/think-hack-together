@@ -17,6 +17,12 @@ export default {
     });
   },
 
+  ideasDelete(id) {
+    this.dispatch(Constants.DELETE_IDEA, {
+      id: id
+    });
+  },
+
   ideasLike(id) {
     this.dispatch(Constants.LIKE_IDEA, {
       id: id
