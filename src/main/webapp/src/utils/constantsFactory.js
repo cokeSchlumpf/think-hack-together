@@ -1,6 +1,8 @@
+import ArrayUtil from './arrayUtil';
+
 /**
  * Utility functions
- * @module listToMatrix
+ * @module constantsFactory;
  */
 
 /**
@@ -11,7 +13,7 @@
  */
 export default function(_constants) {
   let constants = _constants;
-  if (Object.prototype.toString.call(constants) !== '[object Array]') {
+  if (!ArrayUtil.isArray(constants)) {
     constants = Object.keys(arguments).map(key => arguments[key]);
   }
 
