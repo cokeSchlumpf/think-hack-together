@@ -1,15 +1,15 @@
-import ArrayUtil from './arrayUtil';
-
 /**
  * Utility functions
  * @module constantsFactory;
  */
 
+import ArrayUtil from './arrayUtil';
+
 /**
  * Creates an object which serves constant values. E.g: { CONSTANT_1: "CONSTANT_1", CONSTANT_2: "CONSTANT_2" }
  *
  * @constructor
- * @param {array} constants List of strings for constants names.
+ * @param {array} _constants List of strings for constants names.
  */
 export default function(_constants) {
   let constants = _constants;

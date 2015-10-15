@@ -18,13 +18,17 @@ export default {
    * @return {string} a string representation of the defined parameters.
    */
   mkString(array, separator = ', ', before = '', after = '') {
-    return array.reduce((result, item, index) => {
-        let newResult = result;
-        if (index > 0) {
-          newResult = newResult + separator;
-        }
+    let result = array.reduce((concat, item, index) => {
+      let newResult = concat;
+      if (index > 0) {
+        newResult = newResult + separator;
+      }
 
-        return newResult + item;
-      }, before) + after
+      return newResult + item;
+    }, before);
+
+    result = result + after;
+
+    return result;
   }
 };
