@@ -1,58 +1,16 @@
 import Fluxxor from 'fluxxor';
 import Constants from '../constants/ideas';
+import WebServiceClient from '../../utils/webserviceclient';
 
 export default Fluxxor.createStore({
   initialize() {
     this.ideas = {
-      newItems: [ {
-        color: 'light-orange',
-        date: 1444675856,
-        id: 1,
-        likes: 296,
-        liked: false,
-        organizer: 'Michael Wellner',
-        tags: [ 'Mobile', 'Cloud' ],
-        title: 'Lorem Ipsum dolor',
-        town: 'Munich',
-        type: 'Hackathon'
-      }, {
-        color: 'turquoise',
-        date: 1444675856,
-        id: 2,
-        liked: true,
-        likes: 228,
-        organizer: 'Jean Valjean',
-        tags: [ 'Mobile', 'Cloud' ],
-        title: 'Lorem Ipsum dolor sit amet dolor',
-        town: 'Paris',
-        type: 'Ongoing'
-      } ],
-      topItems: [ {
-        color: 'light-orange',
-        date: 1444675856,
-        id: 1,
-        likes: 296,
-        liked: false,
-        organizer: 'Michael Wellner',
-        tags: [ 'Mobile', 'Cloud' ],
-        title: 'Lorem Ipsum dolor',
-        town: 'Munich',
-        type: 'Hackathon'
-      }, {
-        color: 'turquoise',
-        date: 1444675856,
-        id: 2,
-        liked: true,
-        likes: 228,
-        organizer: 'Jean Valjean',
-        tags: [ 'Mobile', 'Cloud' ],
-        title: 'Lorem Ipsum dolor sit amet dolor',
-        town: 'Paris',
-        type: 'Ongoing'
-      } ]
+      newItems: [],
+      topItems: []
     };
 
     this.bindActions(
+      Constants.INIT, this.onInit,
       Constants.ADD_IDEA, this.onAddIdea,
       Constants.LIKE_IDEA, this.onLikeIdea
     );
@@ -69,6 +27,11 @@ export default Fluxxor.createStore({
 
   getState() {
     return this.ideas;
+  },
+
+  onInit(payload) {
+    this.ideas = payload;
+    this.emit('change');
   },
 
   onAddIdea(payload) {

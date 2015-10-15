@@ -13,6 +13,7 @@ import Search from '../components/search';
 import View from '../components/view';
 
 import { IdeasStore } from '../flux/stores/_storeNames';
+import WebServiceClient from '../utils/webserviceclient';
 
 const Icon = React.createClass({
   displayName: 'Home.Icon',
@@ -113,6 +114,14 @@ export default React.createClass({
 
   contextTypes: {
     flux: React.PropTypes.any
+  },
+
+  componentDidMount() {
+    (new WebServiceClient(this, 'api/ideas')).list().onSuccess((data, response) => {
+      console.log(data);
+      console.log(response);
+      this.context.flux.actions.ideasInit(data);
+    });
   },
 
   getStateFromFlux: function() {

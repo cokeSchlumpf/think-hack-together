@@ -15,8 +15,6 @@ import Footer from './footer';
 import Actions from '../flux/actions/_actions';
 import Stores from '../flux/stores/_stores';
 
-import BaseURL from '../utils/baseURL';
-
 const flux = new Fluxxor.Flux(Stores, Actions);
 
 const App = React.createClass({

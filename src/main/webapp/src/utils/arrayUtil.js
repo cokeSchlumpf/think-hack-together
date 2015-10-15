@@ -12,6 +12,6 @@ export default {
         }
 
         return newResult + item;
-      }, before) + after
+      }, before) + after;
   }
 };
