@@ -34,11 +34,11 @@ public class IdeasService {
     	Response result = null;
     	
     	entity.setId(this.ideas.size() + 1);
-    	this.ideas.add(entity);
-    	
-    	result = Response
-    			.status(Response.Status.CREATED)
-    			.entity(entity).build();
+    	if (this.ideas.add(entity)) {   	
+	    	result = Response
+	    			.status(Response.Status.CREATED)
+	    			.entity(entity).build();
+    	}
     	
         return result;
     }
