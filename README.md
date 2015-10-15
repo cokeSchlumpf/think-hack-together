@@ -32,7 +32,7 @@ Now you're able to change the frontent-sources and they will be automatically pu
 
 If you would like to call build steps separately then you should use the commands below.
 
-Running build separately which includes format test, lint, babelify, css, and jsdoc build steps:
+Running build separately which includes format, test, lint, babelify, css, and jsdoc build steps:
 ```
 npm run build
 ```
