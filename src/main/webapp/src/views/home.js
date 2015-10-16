@@ -170,18 +170,17 @@ export default React.createClass({
     });
   },
 
-  //handleDelete(id) {
+  // handleDelete(id) {
   //  this.props.ideasService.delete(id).onSuccess(() => {
   //    this.context.flux.actions.ideasDelete(id);
   //  });
-  //},
+  // },
 
   // Generic solution
   handleDelete(entityname) {
     const self = this;
     return function(id) {
       self.props[entityname + 'Service'].delete(id).onSuccess(() => {
-        console.log(self.context.flux);
         self.context.flux.actions[entityname + 'Delete'].apply(self.context.flux, [ id ]);
       });
     };
