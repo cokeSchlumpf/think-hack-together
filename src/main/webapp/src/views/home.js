@@ -170,10 +170,14 @@ export default React.createClass({
     });
   },
 
-  handleDelete(id) {
-    this.props.ideasService.delete(id).onSuccess(() => {
-      this.context.flux.actions.ideasDelete(id);
-    });
+  handleDelete(entityname) {
+    const self = this;
+    return function(id) {
+      self.props[entityname + 'Service'].delete(id).onSuccess(() => {
+        console.log(self.context.flux);
+        self.context.flux.actions[entityname + 'Delete'].apply(self.context.flux, [ id ]);
+      });
+    };
   },
 
   render() {
@@ -182,9 +186,9 @@ export default React.createClass({
         <Header />
         <Grid className="content">
           { this.state.ideasState.topItems && this.state.ideasState.topItems.length > 0 &&
-            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete } /> }
+            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete('ideas') } /> }
           { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
-            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete } /> }
+            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete('ideas') } /> }
         </Grid>
         <IdeasCreateForm onChange={ this.handleCreateFormChange } onSubmit={ this.handleCreateFormSubmit } { ...this.state.newIdea } />
         <Search showTitle />

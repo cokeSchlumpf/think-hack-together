@@ -52,10 +52,6 @@ export default Fluxxor.createStore({
   },
 
   onUpdateIdea(payload) {
-    console.log(payload);
-    this.ideas.newItems.forEach(item => {
-      console.log(item);
-    });
     this.ideas.newItems = this.ideas.newItems.map((idea) => idea.id === payload.id ? payload : idea);
     this.ideas.topItems = this.ideas.topItems.map((idea) => idea.id === payload.id ? payload : idea);
     this.emit('change');
