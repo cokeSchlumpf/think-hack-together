@@ -1,5 +1,7 @@
 import { Client } from 'node-rest-client';
 
+import _ from 'underscore';
+
 import UrlUtil from './url-util';
 import ArrayUtil from './array-util';
 
@@ -178,7 +180,9 @@ export default class WebServiceClient {
   create(entity, headers = {}) {
     const args = {
       data: entity,
-      headers: headers
+      headers: _.extend({
+        'Content-Type': 'application/json'
+      }, headers)
     };
 
     return this._callMethod(this.client.methods.create, args);
@@ -209,9 +213,11 @@ export default class WebServiceClient {
     const args = {
       data: entity,
       path: {
-        id: id
+        id: entity.id
       },
-      headers: headers
+      headers: _.extend({
+        'Content-Type': 'application/json'
+      }, headers)
     };
 
     return this._callMethod(this.client.methods.update, args);

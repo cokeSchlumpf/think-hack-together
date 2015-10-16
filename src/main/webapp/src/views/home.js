@@ -160,20 +160,19 @@ export default React.createClass({
     this.props.ideasService.create(_.extend(idea, {
       tags: ArrayUtil.fromString(idea.tags)
     })).onSuccess((newIdea) => {
-      console.log(newIdea);
       this.context.flux.actions.ideasCreate(newIdea);
-    });
-  },
-
-  handleDelete(id) {
-    this.props.ideasService.delete(id).onSuccess(() => {
-      this.context.flux.actions.ideasDelete(id);
     });
   },
 
   handleCreateFormChange(idea) {
     this.setState({
       newIdea: idea
+    });
+  },
+
+  handleDelete(id) {
+    this.props.ideasService.delete(id).onSuccess(() => {
+      this.context.flux.actions.ideasDelete(id);
     });
   },
 

@@ -15,6 +15,10 @@ export default {
     });
   },
 
+  ideasUpdate(idea) {
+    this.dispatch(Constants.UPDATE_IDEA, idea);
+  },
+
   ideasLike(id) {
     this.dispatch(Constants.LIKE_IDEA, {
       id: id

@@ -8,6 +8,7 @@ import Home from '../views/home';
 import Idea from '../views/idea';
 import Ideas from '../views/ideas';
 import Submit from '../views/submit';
+import Edit from '../views/edit';
 
 import Navbar from './navbar';
 import Footer from './footer';
@@ -54,6 +55,7 @@ export default (
     <IndexRoute component={ Home } name="home" />
     <Route path="ideas/list" component={ Ideas } name="ideas" />
     <Route path="ideas/:id/detail" component={ Idea } name="idea" />
+    <Route path="ideas/:id/edit" component={ Edit } name="idea" />
     <Route path="ideas/add" component={ Submit } name="submit" />
     <Route path="about" component={ About } name="about" />
   </Route>

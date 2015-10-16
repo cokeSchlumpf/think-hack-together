@@ -83,6 +83,7 @@ export default React.createClass({
     };
 
     const detailURL = `/ideas/${this.props.id}/detail`;
+    const editUrl = `/ideas/${this.props.id}/edit`;
 
     return (
       <div className={ this.getClassName() }>
@@ -102,7 +103,11 @@ export default React.createClass({
               <span className="glyphicon glyphicon-log-out" />
               <span>&nbsp; Find out more</span>
             </RouterLink> &nbsp;&nbsp;&nbsp;
-            <a href="#" onClick={ this.handleDelete }>Delete</a>
+            <a href="#" onClick={ this.handleDelete }>Delete</a>&nbsp;&nbsp;&nbsp;
+            <a href="#" onClick={ this.handle }>Edit</a>
+            <RouterLink to={ editUrl } className="more">
+              &nbsp;Edit
+            </RouterLink>
           </p>
         </div>
       </div>

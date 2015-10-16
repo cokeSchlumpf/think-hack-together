@@ -13,7 +13,8 @@ export default Fluxxor.createStore({
       Constants.INIT, this.onInit,
       Constants.CREATE_IDEA, this.onCreateIdea,
       Constants.LIKE_IDEA, this.onLikeIdea,
-      Constants.DELETE_IDEA, this.onDeleteIdea
+      Constants.DELETE_IDEA, this.onDeleteIdea,
+      Constants.UPDATE_IDEA, this.onUpdateIdea
     );
   },
 
@@ -47,6 +48,16 @@ export default Fluxxor.createStore({
   onDeleteIdea(payload) {
     this.ideas.newItems = this.ideas.newItems.filter((idea) => !(idea.id === payload.id));
     this.ideas.topItems = this.ideas.topItems.filter((idea) => !(idea.id === payload.id));
+    this.emit('change');
+  },
+
+  onUpdateIdea(payload) {
+    console.log(payload);
+    this.ideas.newItems.forEach(item => {
+      console.log(item);
+    });
+    this.ideas.newItems = this.ideas.newItems.map((idea) => idea.id === payload.id ? payload : idea);
+    this.ideas.topItems = this.ideas.topItems.map((idea) => idea.id === payload.id ? payload : idea);
     this.emit('change');
   },
 
