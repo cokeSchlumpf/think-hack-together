@@ -35,14 +35,18 @@ export default {
    * @param {string} string which contains an array.
    * @param {string} separator which separates the elements within the string. Default ','.
    * @param {boolean} stripWhitespace identifies if whitespaces should be stripped from elements.
+   * @return {array} an array from the defined string.
    */
   fromString(string, separator = ',', stripWhitespace = true) {
     return string.split(separator).map(s => {
+      let result;
       if (stripWhitespace) {
-        return s.replace(/ /g, '');
+        result = s.replace(/ /g, '');
       } else {
-        return s;
+        result = s;
       }
+
+      return result;
     });
   }
 };
