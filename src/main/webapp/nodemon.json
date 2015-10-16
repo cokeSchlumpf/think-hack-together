@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "ignore": ["src/main.js", "assets/js/main.min.js"]
+}
