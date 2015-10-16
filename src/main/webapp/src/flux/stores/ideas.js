@@ -1,4 +1,5 @@
 import Fluxxor from 'fluxxor';
+import _ from 'underscore';
 import Constants from '../constants/ideas';
 
 export default Fluxxor.createStore({
@@ -38,11 +39,7 @@ export default Fluxxor.createStore({
   onCreateIdea(payload) {
     // const id = this._nextId();
     // this.getState()[id] = payload;
-    this.ideas.newItems = update(this.ideas.newItems, {
-      $push: [
-        payload
-      ]
-    });
+    this.ideas.newItems = _.union([ payload ], this.ideas.newItems);
 
     this.emit('change');
   },

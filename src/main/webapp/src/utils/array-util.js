@@ -28,5 +28,21 @@ export default {
     }, before);
 
     return result + after;
+  },
+
+  /**
+   * Creates an array from string.
+   * @param {string} string which contains an array.
+   * @param {string} separator which separates the elements within the string. Default ','.
+   * @param {boolean} stripWhitespace identifies if whitespaces should be stripped from elements.
+   */
+  fromString(string, separator = ',', stripWhitespace = true) {
+    return string.split(separator).map(s => {
+      if (stripWhitespace) {
+        return s.replace(/ /g, '');
+      } else {
+        return s;
+      }
+    });
   }
 };

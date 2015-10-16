@@ -5,16 +5,8 @@ export default {
     this.dispatch(Constants.INIT, ideas);
   },
 
-  ideasCreate(color, date, organizer, tags, title, town, type) {
-    this.dispatch(Constants.CREATE_IDEA, {
-      color: color,
-      date: date,
-      organizer: organizer,
-      tags: tags,
-      title: title,
-      town: town,
-      type: type
-    });
+  ideasCreate(idea) {
+    this.dispatch(Constants.CREATE_IDEA, idea);
   },
 
   ideasDelete(id) {

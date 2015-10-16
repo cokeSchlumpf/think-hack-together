@@ -1,16 +1,20 @@
 import React from 'react';
 import { StoreWatchMixin } from 'fluxxor';
-import cx from 'classnames';
 import { Grid, Col, Row, Jumbotron } from 'react-bootstrap';
 
-import ListToMatrix from '../utils/list-to-matrix';
+import _ from 'underscore';
+import cx from 'classnames';
 
+import ArrayUtil from '../utils/array-util';
+import ListToMatrix from '../utils/list-to-matrix';
+import WebServiceClient from '../utils/webserviceclient';
+
+import IdeasCreateForm from '../components/ideas-create-form';
 import Thumbnail from '../components/thumbnail';
 import Search from '../components/search';
 import View from '../components/view';
 
 import { IdeasStore } from '../flux/stores/_storeNames';
-import WebServiceClient from '../utils/webserviceclient';
 
 const Icon = React.createClass({
   displayName: 'Home.Icon',
@@ -47,19 +51,21 @@ const Header = React.createClass({
   render() {
     return (
       <Jumbotron>
-        <Row>
-          <Col md={ 4 }>
-            <Icon className="think" title="Think" text="Publish your ideas, find IBMers who support you." />
-            <Icon className="hack" title="Hack" text="Meet for a hackathon or develop apps remotely." />
-            <Icon className="together" title="Together" text="Connect to IBMers and build your network." />
-          </Col>
-          <Col md={ 1 } />
-          <Col md={ 7 } className="about">
-            <p>
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-            </p>
-          </Col>
-        </Row>
+        <Grid>
+          <Row>
+            <Col md={ 4 }>
+              <Icon className="think" title="Think" text="Publish your ideas, find IBMers who support you." />
+              <Icon className="hack" title="Hack" text="Meet for a hackathon or develop apps remotely." />
+              <Icon className="together" title="Together" text="Connect to IBMers and build your network." />
+            </Col>
+            <Col md={ 1 } />
+            <Col md={ 7 } className="about">
+              <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              </p>
+            </Col>
+          </Row>
+        </Grid>
       </Jumbotron>
       );
   }
@@ -120,6 +126,20 @@ export default React.createClass({
     };
   },
 
+  getInitialState() {
+    return {
+      newIdea: {
+        color: 'light-orange',
+        date: Date.now(),
+        organizer: 'Knusperolaf',
+        tags: 'mobile, cloud',
+        title: '',
+        town: 'Dresden',
+        type: 'Hackathon'
+      }
+    };
+  },
+
   contextTypes: {
     flux: React.PropTypes.any
   },
@@ -136,15 +156,24 @@ export default React.createClass({
     };
   },
 
-  handleCreate(payload) {
-    this.props.ideasService.create(payload).onSuccess(() => {
-      this.context.flux.actions.ideasCreate(payload);
+  handleCreateFormSubmit(idea) {
+    this.props.ideasService.create(_.extend(idea, {
+      tags: ArrayUtil.fromString(idea.tags)
+    })).onSuccess((newIdea) => {
+      console.log(newIdea);
+      this.context.flux.actions.ideasCreate(newIdea);
     });
   },
 
   handleDelete(id) {
     this.props.ideasService.delete(id).onSuccess(() => {
       this.context.flux.actions.ideasDelete(id);
+    });
+  },
+
+  handleCreateFormChange(idea) {
+    this.setState({
+      newIdea: idea
     });
   },
 
@@ -158,7 +187,8 @@ export default React.createClass({
           { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
             <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete } /> }
         </Grid>
-        <Search showTitle onCreate={ this.handleCreate } />
+        <IdeasCreateForm onChange={ this.handleCreateFormChange } onSubmit={ this.handleCreateFormSubmit } { ...this.state.newIdea } />
+        <Search showTitle />
       </View>
       );
   }
