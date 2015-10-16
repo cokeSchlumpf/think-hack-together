@@ -139,6 +139,12 @@ export default React.createClass({
     };
   },
 
+  handleCreate(payload) {
+    this.props.ideasService.create(payload).onSuccess(() => {
+      this.context.flux.actions.ideasCreate(payload);
+    });
+  },
+
   handleDelete(id) {
     this.props.ideasService.delete(id).onSuccess(() => {
       this.context.flux.actions.ideasDelete(id);
@@ -155,7 +161,7 @@ export default React.createClass({
           { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
             <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete } /> }
         </Container>
-        <Search showTitle />
+        <Search showTitle onCreate={ this.handleCreate } />
       </View>
       );
   }

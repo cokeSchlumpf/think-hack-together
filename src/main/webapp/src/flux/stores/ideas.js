@@ -10,7 +10,7 @@ export default Fluxxor.createStore({
 
     this.bindActions(
       Constants.INIT, this.onInit,
-      Constants.ADD_IDEA, this.onAddIdea,
+      Constants.CREATE_IDEA, this.onCreateIdea,
       Constants.LIKE_IDEA, this.onLikeIdea,
       Constants.DELETE_IDEA, this.onDeleteIdea
     );
@@ -35,9 +35,15 @@ export default Fluxxor.createStore({
     this.emit('change');
   },
 
-  onAddIdea(payload) {
+  onCreateIdea(payload) {
     // const id = this._nextId();
     // this.getState()[id] = payload;
+    this.ideas.newItems = update(this.ideas.newItems, {
+      $push: [
+        payload
+      ]
+    });
+
     this.emit('change');
   },
 

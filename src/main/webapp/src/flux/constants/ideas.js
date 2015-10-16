@@ -2,7 +2,7 @@ import ConstantsFactory from '../../utils/ConstantsFactory';
 
 export default ConstantsFactory([
   'INIT',
-  'ADD_IDEA',
+  'CREATE_IDEA',
   'LIKE_IDEA',
   'DELETE_IDEA'
 ]);

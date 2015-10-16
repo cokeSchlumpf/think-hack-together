@@ -5,8 +5,8 @@ export default {
     this.dispatch(Constants.INIT, ideas);
   },
 
-  ideasAdd(color, date, organizer, tags, title, town, type) {
-    this.dispatch(Constants.ADD_IDEA, {
+  ideasCreate(color, date, organizer, tags, title, town, type) {
+    this.dispatch(Constants.CREATE_IDEA, {
       color: color,
       date: date,
       organizer: organizer,

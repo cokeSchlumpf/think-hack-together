@@ -13,20 +13,23 @@ import Col from './col';
 import Row from './row';
 
 export default React.createClass({
-
   displayName: 'Search',
 
   propTypes: {
     searchstring: React.PropTypes.string,
-    showTitle: React.PropTypes.bool
+    showTitle: React.PropTypes.bool,
+    onCreate: React.PropTypes.func
   },
 
   handleSearch(event) {
     // TODO
   },
 
-  handleSumbit(event) {
-    // TODO
+  handleSubmit(event) {
+    if (this.props.onCreate) {
+      this.props.onCreate(this.props);
+    }
+
     event.stopPropagation();
     event.preventDefault();
   },
