@@ -84,7 +84,7 @@ public class IdeasService {
 		if (found.isPresent()) {
 			this.ideas.remove(found.get());
 			this.ideas.add(entity);
-			
+
 			result = Response.ok(entity).build();
 		} else {
 			result = Response.status(Response.Status.NOT_FOUND).entity("Idea not found for ID: " + entity.getId())
@@ -103,7 +103,13 @@ public class IdeasService {
 
 		Optional<Idea> found = this.ideas.stream().filter(idea -> idea.getId() == id).findFirst();
 
+		boolean removed = false;
+
 		if (found.isPresent()) {
+			removed = this.ideas.removeIf(idea -> idea.getId() == id);
+		}
+
+		if (removed) {
 			result = Response.ok(found.get()).build();
 		} else {
 			result = Response.status(Response.Status.NOT_FOUND).entity("Idea not found for ID: " + id).build();
