@@ -1,4 +1,4 @@
-import ConstantsFactory from '../../utils/ConstantsFactory';
+import ConstantsFactory from '../../utils/constants-factory';
 
 export default ConstantsFactory([
   'IdeasStore'

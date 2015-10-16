@@ -5,8 +5,7 @@
 
 import React from 'react';
 import { Link as RouterLink, IndexLink } from 'react-router';
-
-import Container from './container';
+import { Grid } from 'react-bootstrap';
 
 export default React.createClass({
   displayName: 'Navbar',
@@ -14,7 +13,7 @@ export default React.createClass({
   render() {
     return (
       <nav className="navbar navbar-static-top">
-        <Container>
+        <Grid>
           <div className="navbar-header">
             <button type="button"
               className="navbar-toggle collapsed"
@@ -45,7 +44,7 @@ export default React.createClass({
               </li>
             </ul>
           </div>
-        </Container>
+        </Grid>
       </nav>
       );
   }

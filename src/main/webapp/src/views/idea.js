@@ -1,9 +1,6 @@
 import React from 'react';
+import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
 
-import Jumbotron from '../components/jumbotron';
-import Row from '../components/row';
-import Col from '../components/col';
-import Container from '../components/container';
 import View from '../components/view';
 
 export default React.createClass({
@@ -22,7 +19,7 @@ export default React.createClass({
             </Col>
           </Row>
         </Jumbotron>
-        <Container className="content">
+        <Grid className="content">
           <Row>
             <Col md={ 4 }>
               <h2>Hackathon</h2>
@@ -52,7 +49,7 @@ export default React.createClass({
               </p>
             </Col>
           </Row>
-        </Container>
+        </Grid>
       </View>
       );
   }

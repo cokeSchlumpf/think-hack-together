@@ -1,8 +1,7 @@
 import { Client } from 'node-rest-client';
 
-import URLUtil from './urlUtil';
-import ArrayUtil from './arrayUtil';
-import ConstantsFactory from './constantsFactory';
+import UrlUtil from './url-util';
+import ArrayUtil from './array-util';
 
 class WebServiceHandler {
 
@@ -68,7 +67,7 @@ class WebServiceHandler {
 export default class WebServiceClient {
 
   constructor(owner, servicePath, requestConfig, responseConfig) {
-    const serviceURL = `${URLUtil.baseURL()}/${servicePath}`;
+    const serviceURL = `${UrlUtil.baseURL()}/${servicePath}`;
     const serviceItemURL = `${serviceURL}/\${id}`;
 
     this.owner = owner;

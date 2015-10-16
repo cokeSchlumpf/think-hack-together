@@ -5,12 +5,8 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import { Grid, Col, Row, Jumbotron } from 'react-bootstrap';
 import cx from 'classnames';
-
-import Jumbotron from './jumbotron';
-import Container from './container';
-import Col from './col';
-import Row from './row';
 
 export default React.createClass({
   displayName: 'Search',
@@ -36,7 +32,7 @@ export default React.createClass({
 
   render() {
     return (
-      <Container className="content">
+      <Grid className="content">
         { this.props.showTitle &&
           <Row>
             <Col>
@@ -58,7 +54,7 @@ export default React.createClass({
             </button>
           </Col>
         </Row>
-      </Container>
+      </Grid>
       );
   }
 

@@ -3,7 +3,7 @@
  * @module constantsFactory;
  */
 
-import ArrayUtil from './arrayUtil';
+import ArrayUtil from './array-util';
 
 /**
  * Creates an object which serves constant values. E.g: { CONSTANT_1: "CONSTANT_1", CONSTANT_2: "CONSTANT_2" }

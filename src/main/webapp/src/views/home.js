@@ -1,13 +1,10 @@
 import React from 'react';
 import { StoreWatchMixin } from 'fluxxor';
 import cx from 'classnames';
+import { Grid, Col, Row, Jumbotron } from 'react-bootstrap';
 
-import ListToMatrix from '../utils/listToMatrix';
+import ListToMatrix from '../utils/list-to-matrix';
 
-import Col from '../components/col';
-import Container from '../components/container';
-import Jumbotron from '../components/jumbotron';
-import Row from '../components/row';
 import Thumbnail from '../components/thumbnail';
 import Search from '../components/search';
 import View from '../components/view';
@@ -155,12 +152,12 @@ export default React.createClass({
     return (
       <View>
         <Header />
-        <Container className="content">
+        <Grid className="content">
           { this.state.ideasState.topItems && this.state.ideasState.topItems.length > 0 &&
             <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete } /> }
           { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
             <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete } /> }
-        </Container>
+        </Grid>
         <Search showTitle onCreate={ this.handleCreate } />
       </View>
       );
