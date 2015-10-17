@@ -26,7 +26,7 @@ describe('_.check', function() {
     expect(function() {
       _.check({
         isFunction: [ [ 'a' ] ]
-      })
+      });
     }).toThrow();
   });
 });
