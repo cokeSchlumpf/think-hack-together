@@ -16,6 +16,21 @@ describe('_.arrayToMatrix', function() {
   });
 });
 
+describe('_.check', function() {
+  it('throws an error if checks are failing.', function() {
+    const _ = require('../../utils/underscore');
+    expect(_.check({
+      isEqual: [ [ 'a', 'a' ] ]
+    })).toEqual(true);
+
+    expect(function() {
+      _.check({
+        isFunction: [ [ 'a' ] ]
+      })
+    }).toThrow();
+  });
+});
+
 describe('_.constantsFromArray', function() {
   it('creates an object with constants from a list of strings (array)', function() {
     const _ = require('../../utils/underscore');
@@ -43,6 +58,30 @@ describe('_.constantsFromArray', function() {
       B: 'B',
       C: 'C'
     });
+  });
+});
+
+describe('_.constantsFromArray', function() {
+  it('creates an object with constants from a list of strings (array) with prefix', function() {
+    const _ = require('../../utils/underscore');
+
+    _.isArray = jest.genMockFunction();
+    _.isArray.mockReturnValue(false);
+
+    expect(_.constantsFromArray([ 'A', 'B', 'C' ], 'PREFIX_')).toEqual({
+      PREFIX_A: 'PREFIX_A',
+      PREFIX_B: 'PREFIX_B',
+      PREFIX_C: 'PREFIX_C'
+    });
+  });
+});
+
+describe('_.isNonEmptyString', function() {
+  it('returns true if given object is a string and not empty.', function() {
+    const _ = require('../../utils/underscore');
+    expect(_.isNonEmptyString('aaa')).toEqual(true);
+    expect(_.isNonEmptyString([ 'a' ])).toEqual(false);
+    expect(_.isNonEmptyString('')).toEqual(false);
   });
 });
 

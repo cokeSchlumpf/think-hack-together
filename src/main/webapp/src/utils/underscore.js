@@ -56,16 +56,58 @@ export default _.extend({}, _, {
   },
 
   /**
+   * Executes checks on variables as given values of a `smart` object. E.g.
+   *
+   * {
+   *    isEqual: [ [ value1, expectedValue1 ], [ value2, expectedValue2 ] ],
+   *    isFunction [ [ func1 ], [ func2 ] ]
+   * }
+   *
+   * The key of the object  must match a valid test function. The value is always an
+   * array of arrays. Each inner array is the argument list for the given check function.
+   *
+   * @param {object} checks to be performed.
+   * @return {boolean} true or throw error if checks are not successful.
+   */
+  check(checks) {
+    const self = this;
+    const allowedChecks = [
+      'contains', 'isEqual', 'isMatch', 'isEmpty', 'isElement', 'isArray', 'isObject',
+      'isFunction', 'isString', 'isNonEmptyString', 'isNumber', 'isBoolean',
+      'isDate', 'isRegExp', 'isNaN', 'isNull', 'isUndefined' ];
+
+    _.each(_.keys(checks), key => {
+      if (!_.contains(allowedChecks, key)) {
+        throw new Error(`${key} is not a valid check. Please check your checks ${checks}.`);
+      } else {
+        _.each(checks[key], (args, index) => {
+          if (!self[key].apply(self, args)) {
+            throw new Error(`${key} check was not successful on supplied value(s): ${self.mkString(args)} (parameterlist ${index} for this check).`);
+          }
+        });
+      }
+    });
+
+    return true;
+  },
+
+  /**
    * Creates an object which serves constant values. E.g: { CONSTANT_1: "CONSTANT_1", CONSTANT_2: "CONSTANT_2" }
    * @param {array} strings which are constant names. You can also have multiple string arguments instead of an array.
+   * @param {string} prefix all constants with a prefix (only if 1st parameter is an array).
+   * @param {suffix} suffix all constants with a suffix (only if 1st parameter is an array).
    * @return {object} which contains each string as key -> value pair.
    */
-  constantsFromArray(strings) {
+  constantsFromArray(strings, prefix, suffix) {
+    const self = this;
+
     return _.object(
       this.doIfElse(!_.isArray(strings), () => {
         return _.values(arguments);
       }, () => {
-        return strings;
+        const p = !prefix ? '' : prefix;
+        const s = !suffix ? '' : suffix;
+        return strings.map(value => p + value + s);
       }).map(value => {
         return [ value, value ];
       }));
@@ -88,6 +130,15 @@ export default _.extend({}, _, {
     }
 
     return result;
+  },
+
+  /**
+   * Checks whether the parameter is an string and if the string is not empty.
+   * @param {object} obj which may be a string
+   * @return {boolean} true if obj is a string and not empty, else false
+   */
+  isNonEmptyString(obj) {
+    return _.isString(obj) && obj.length > 0;
   },
 
   /**
