@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col, Input, ButtonInput } from 'react-bootstrap';
 
-import _ from 'underscore';
+import _ from '../utils/underscore';
 import update from 'react-addons-update';
 
 export default React.createClass({

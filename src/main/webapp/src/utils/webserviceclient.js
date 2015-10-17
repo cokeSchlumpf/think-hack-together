@@ -1,9 +1,7 @@
 import { Client } from 'node-rest-client';
 
-import _ from 'underscore';
-
+import _ from './underscore';
 import UrlUtil from './url-util';
-import ArrayUtil from './array-util';
 
 class WebServiceHandler {
 
@@ -151,8 +149,8 @@ export default class WebServiceClient {
     }
 
     if (orderBy.length > 0) {
-      if (ArrayUtil.isArray(orderBy)) {
-        data[orderBy] = ArrayUtil.mkString(orderBy);
+      if (_.isArray(orderBy)) {
+        data[orderBy] = _.mkString(orderBy);
       } else {
         data[orderBy] = orderBy;
       }

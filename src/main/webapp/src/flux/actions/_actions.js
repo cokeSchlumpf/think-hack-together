@@ -1,3 +1,4 @@
+import _ from '../../utils/underscore';
 import IdeasActions from './ideas';
 
-export default Object.assign({}, IdeasActions);
+export default _.extend({}, IdeasActions);

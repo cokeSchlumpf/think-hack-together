@@ -1,5 +1,5 @@
 import Fluxxor from 'fluxxor';
-import _ from 'underscore';
+import _ from '../../utils/underscore';
 import Constants from '../constants/ideas';
 
 export default Fluxxor.createStore({

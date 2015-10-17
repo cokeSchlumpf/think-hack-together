@@ -3,12 +3,11 @@ import { History } from 'react-router';
 import { StoreWatchMixin } from 'fluxxor';
 import { Grid, Col, Row, Jumbotron } from 'react-bootstrap';
 
-import _ from 'underscore';
+import _ from '../utils/underscore';
+import WebServiceClient from '../utils/webserviceclient';
 
 import View from '../components/view';
 import IdeasCreateForm from '../components/ideas-create-form';
-import WebServiceClient from '../utils/webserviceclient';
-import ArrayUtil from '../utils/array-util';
 
 import { IdeasStore } from '../flux/stores/_storeNames';
 
@@ -42,17 +41,15 @@ export default React.createClass({
     this.props.ideasService.read(this.props.params.id).onSuccess((data, response) => {
       this.setState({
         idea: _.extend(data, {
-          tags: ArrayUtil.mkString(data.tags)
+          tags: _.mkString(data.tags)
         })
       });
     });
   },
 
   handleCreateFormSubmit(idea) {
-    console.log(idea);
-    console.log(idea.title);
     this.props.ideasService.update(_.extend(idea, {
-      tags: ArrayUtil.fromString(idea.tags),
+      tags: _.arrayFromString(idea.tags),
       id: this.props.params.id
     })).onSuccess((updatedIdea) => {
       this.context.flux.actions.ideasUpdate(updatedIdea);

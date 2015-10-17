@@ -1,6 +1,6 @@
-import ConstantsFactory from '../../utils/constants-factory';
+import _ from '../../utils/underscore';
 
-export default ConstantsFactory([
+export default _.constantsFromArray([
   'INIT',
   'LIKE'
 ]);

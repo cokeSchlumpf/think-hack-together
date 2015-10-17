@@ -2,11 +2,9 @@ import React from 'react';
 import { StoreWatchMixin } from 'fluxxor';
 import { Grid, Col, Row, Jumbotron } from 'react-bootstrap';
 
-import _ from 'underscore';
 import cx from 'classnames';
 
-import ArrayUtil from '../utils/array-util';
-import ListToMatrix from '../utils/list-to-matrix';
+import _ from '../utils/underscore';
 import WebServiceClient from '../utils/webserviceclient';
 
 import IdeasCreateForm from '../components/ideas-create-form';
@@ -83,7 +81,7 @@ const ItemGroup = React.createClass({
   },
 
   render() {
-    const items = ListToMatrix(this.props.items, 2);
+    const items = _.arrayToMatrix(this.props.items, 2);
     const self = this;
 
     const cols = (column, colIndex) => {
@@ -158,7 +156,7 @@ export default React.createClass({
 
   handleCreateFormSubmit(idea) {
     this.props.ideasService.create(_.extend(idea, {
-      tags: ArrayUtil.fromString(idea.tags)
+      tags: _.arrayFromString(idea.tags)
     })).onSuccess((newIdea) => {
       this.context.flux.actions.ideasCreate(newIdea);
     });
