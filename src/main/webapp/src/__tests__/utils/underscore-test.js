@@ -91,3 +91,11 @@ describe('_.mkString', function() {
     expect(_.mkString([ 1, 2, 3, 4 ], '|', 'prefix', 'suffix')).toEqual('prefix1|2|3|4suffix');
   });
 });
+
+describe('_.orElse', function() {
+  it('returns the value if it is undefined, otherwise it will return elseValue.', function() {
+    const _ = require('../../utils/underscore');
+    // expect(_.orElse(undefined, 'a')).toEqual('a');
+    expect(_.orElse('a', 'b')).toEqual('a');
+  });
+});

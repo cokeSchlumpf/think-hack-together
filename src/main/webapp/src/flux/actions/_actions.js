@@ -1,6 +1,6 @@
 import _ from '../../utils/underscore';
 
 import AppMessages from './app-messages';
-import IdeasActions from './ideas';
+import EntitiesActions from './entities';
 
-export default _.extend({}, AppMessages, IdeasActions);
+export default _.extend({}, AppMessages, EntitiesActions);

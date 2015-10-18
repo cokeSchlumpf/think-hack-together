@@ -14,7 +14,7 @@ export default React.createClass({
   propTypes: {
     color: React.PropTypes.string,
     date: React.PropTypes.number,
-    id: React.PropTypes.number,
+    id: React.PropTypes.any,
     likes: React.PropTypes.number,
     liked: React.PropTypes.bool,
     organizer: React.PropTypes.string,

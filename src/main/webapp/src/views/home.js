@@ -12,7 +12,10 @@ import Thumbnail from '../components/thumbnail';
 import Search from '../components/search';
 import View from '../components/view';
 
-import { IdeasStore } from '../flux/stores/_storeNames';
+import { EntityStore } from '../flux/stores/_storeNames';
+import EntityStoreWatchMixin from '../mixins/entity-store-watch-mixin';
+
+const Ideas = 'Ideas';
 
 const Icon = React.createClass({
   displayName: 'Home.Icon',
@@ -112,7 +115,7 @@ const ItemGroup = React.createClass({
 export default React.createClass({
   displayName: 'Home',
 
-  mixins: [ StoreWatchMixin(IdeasStore) ],
+  mixins: [ EntityStoreWatchMixin('Ideas') ],
 
   propTypes: {
     ideasService: React.PropTypes.any
@@ -144,21 +147,15 @@ export default React.createClass({
 
   componentDidMount() {
     this.props.ideasService.list().onSuccess((data, response) => {
-      this.context.flux.actions.ideasInit(data);
+      this.ideasSetAll(data);
     });
-  },
-
-  getStateFromFlux: function() {
-    return {
-      ideasState: this.context.flux.stores[IdeasStore].getState()
-    };
   },
 
   handleCreateFormSubmit(idea) {
     this.props.ideasService.create(_.extend(idea, {
       tags: _.arrayFromString(idea.tags)
     })).onSuccess((newIdea) => {
-      this.context.flux.actions.ideasCreate(newIdea);
+      // this.context.flux.actions.entitiesSetOne(Ideas, newIdea);
     });
   },
 
@@ -178,9 +175,11 @@ export default React.createClass({
   handleDelete(entityname) {
     const self = this;
     return function(id) {
+      /*
       self.props[entityname + 'Service'].delete(id).onSuccess(() => {
-        self.context.flux.actions[entityname + 'Delete'].apply(self.context.flux, [ id ]);
+        self.context.flux.actions.entitiesDelete(entityname, id);
       });
+      */
     };
   },
 
@@ -189,10 +188,10 @@ export default React.createClass({
       <View>
         <Header />
         <Grid className="content">
-          { this.state.ideasState.topItems && this.state.ideasState.topItems.length > 0 &&
-            <ItemGroup title="Top Ideas" items={ this.state.ideasState.topItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete('ideas') } /> }
-          { this.state.ideasState.newItems && this.state.ideasState.newItems.length > 0 &&
-            <ItemGroup title="New Ideas" items={ this.state.ideasState.newItems } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete('ideas') } /> }
+          { this.state.ideasState && this.state.ideasState.length > 0 &&
+            <ItemGroup title="Top Ideas" items={ this.state.ideasState } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete('ideas') } /> }
+          { this.state.ideasState && this.state.ideasState.length > 0 &&
+            <ItemGroup title="New Ideas" items={ this.state.ideasState } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete('ideas') } /> }
         </Grid>
         <IdeasCreateForm onChange={ this.handleCreateFormChange } onSubmit={ this.handleCreateFormSubmit } { ...this.state.newIdea } />
         <Search showTitle />

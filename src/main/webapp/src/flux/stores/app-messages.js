@@ -27,12 +27,12 @@ export default Fluxxor.createStore({
     this._messages = [];
     this._loading = [];
 
-    this.bindActions(_.zip(Constants, [
+    this.bindActions.apply(this, _.flatten(_.zip(_.values(Constants), [
       this._loadingStart,
       this._loadingDone,
       this._messageHide,
       this._messageNew
-    ]));
+    ])));
   },
 
   /**

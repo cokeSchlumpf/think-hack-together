@@ -72,9 +72,9 @@ export default _.extend({}, _, {
   check(checks) {
     const self = this;
     const allowedChecks = [
-      'contains', 'isEqual', 'isMatch', 'isEmpty', 'isElement', 'isArray', 'isObject',
+      'contains', 'isEqual', 'isMatch', 'isEmpty', 'isElement', 'isArray', 'isDefined', 'isObject',
       'isFunction', 'isString', 'isNonEmptyString', 'isNumber', 'isBoolean',
-      'isDate', 'isRegExp', 'isNaN', 'isNull', 'isUndefined' ];
+      'isDate', 'isRegExp', 'isNaN', 'isNull', 'isUndefined', 'isUnique' ];
 
     _.each(_.keys(checks), key => {
       if (!_.contains(allowedChecks, key)) {
@@ -133,12 +133,38 @@ export default _.extend({}, _, {
   },
 
   /**
+   * Checks whether obj is unequal to undefined.
+   * @param {object} obj to check
+   * @return {booolean} if object is defined
+   */
+  isDefined(obj) {
+    return !_.isUndefined(obj);
+  },
+
+  /**
    * Checks whether the parameter is an string and if the string is not empty.
    * @param {object} obj which may be a string
    * @return {boolean} true if obj is a string and not empty, else false
    */
   isNonEmptyString(obj) {
     return _.isString(obj) && obj.length > 0;
+  },
+
+  /**
+   * Checks whether an object is includey only once in the collection.
+   * @param {array} collection to check
+   * @param {object} element to look for
+   * @return {boolean} true if element is only included once, false otherwise
+   */
+  isUnique(collection, element) {
+    const predicate = item => {
+      return item === element;
+    };
+
+    const firstIndex = _.findIndex(collection, predicate);
+    const lastIndex = _.findLastIndex(collection, predicate);
+
+    return firstIndex >= 0 && firstIndex === lastIndex;
   },
 
   /**
@@ -161,5 +187,17 @@ export default _.extend({}, _, {
     }, before);
 
     return result + after;
+  },
+
+  /**
+   * Retuens value if condition is true.
+   * @param {any} value which will be returned if condition is true.
+   * @param {any} elseValue will be returned if condition is false.
+   * @param {function} condition, optional function which will be called with (value, elseValue). If not set the function will check if value is defined.
+   * @return {any} either value or elseValue.
+   */
+  orElse(value, elseValue, condition) {
+    const func = this.isFunction(condition) ? condition : this.isDefined;
+    return this.doIfElse(func.apply(this, [ value, elseValue ]), () => value, () => elseValue);
   }
 });
