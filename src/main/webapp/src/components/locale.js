@@ -2,21 +2,8 @@ import React from 'react';
 import { StoreWatchMixin } from 'fluxxor';
 
 import _ from '../utils/underscore';
+import Messages from '../messages/_messages';
 import { AppMessagesStore } from '../flux/stores/_storeNames';
-
-const Messages = {
-  default: {
-    HOME: {
-      LOREM_IPSUM: 'lorem %1 ipsum %0 DEUTSCH'
-    }
-  },
-
-  'en-US': {
-    HOME_2: {
-      LOREM_IPSUM: 'lorem %0 ipsum %1 ENGLISH'
-    }
-  }
-};
 
 export default React.createClass({
   displayName: 'Locale',
