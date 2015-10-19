@@ -43,7 +43,7 @@ export default React.createClass({
       return (
         <Grid>
           <Row>
-            <Col md={ 12 }>
+            <Col md={ 12 } className="alerts">
               { messages }
             </Col>
           </Row>
