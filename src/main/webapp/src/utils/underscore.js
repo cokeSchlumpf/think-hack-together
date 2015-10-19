@@ -133,15 +133,16 @@ export default _.extend({}, _, {
    * @param {boolean} condition which decides whether to execute trueFunc or falseFunc.
    * @param {function} trueFunc which will be executed if condition is true.
    * @param {falseFunc} falseFunc which will be executed if condition is false.
+   * @param {object} [context] which should be injected to the functions.
    * @return {any} the result of trueFunc/ falseFunc.
    */
-  doIfElse(condition, trueFunc, falseFunc) {
+  doIfElse(condition, trueFunc, falseFunc, context) {
     let result;
 
     if (condition) {
-      result = trueFunc.apply();
+      result = (context ? _.bind(trueFunc, context) : trueFunc).apply();
     } else {
-      result = falseFunc.apply();
+      result = (context ? _.bind(falseFunc, context) : falseFunc).apply();
     }
 
     return result;

@@ -1,8 +1,3 @@
-/**
- * Navbar module.
- * @module components/navbar
- */
-
 import React from 'react';
 import { Link as RouterLink, IndexLink } from 'react-router';
 import { Grid } from 'react-bootstrap';

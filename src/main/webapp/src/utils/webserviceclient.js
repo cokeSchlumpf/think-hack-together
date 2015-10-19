@@ -111,6 +111,10 @@ export default class WebServiceClient {
    * @return {WebServiceClient} instance
    */
   constructor(servicePath, requestConfig, responseConfig) {
+    _.check({
+      isNonEmptyString: [ [ servicePath ] ]
+    });
+
     const serviceURL = _.doIfElse(
       servicePath.indexOf('http://') === -1 || servicePath.indexOf('https://') === -1,
       () => `${UrlUtil.baseURL()}/${servicePath}`,

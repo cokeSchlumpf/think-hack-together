@@ -1,8 +1,10 @@
 import React from 'react';
-import { Grid, Col, Row, Jumbotron } from 'react-bootstrap';
+import { Grid, Col, Row, Jumbotron, Button } from 'react-bootstrap';
 
 import _ from '../../utils/underscore';
 import WebServiceClient from '../../utils/webserviceclient';
+
+import Locale from '../../components/locale';
 
 import Header from './_header';
 import ItemGroup from './_item-group';
@@ -81,6 +83,20 @@ export default React.createClass({
     return (
       <View>
         <Header />
+        <Grid>
+          <Row>
+            <Col md={ 6 }>
+              <Locale params={ [ 'FCB', 'SGD' ] }>
+                HOME.LOREM_IPSUM
+              </Locale>
+            </Col>
+            <Col md={ 6 }>
+              <Button onClick={ () => this.context.flux.actions.appMessagesSetLocale('es-UY') }>
+                Hallo
+              </Button>
+            </Col>
+          </Row>
+        </Grid>
         <Grid className="content">
           { this.state.ideasState && this.state.ideasState.length > 0 &&
             <ItemGroup title="Top Ideas" items={ this.state.ideasState } onLike={ this.context.flux.actions.ideasLike } onDelete={ this.handleDelete('ideas') } /> }

@@ -29,7 +29,7 @@ export default {
    */
   appMessagesLoadingDone(component, identity) {
     _.check({
-      nonEmptyString: [ [ component ], [ identity ] ]
+      isNonEmptyString: [ [ component ], [ identity ] ]
     });
 
     this.dispatch(Constants.APP_MESSAGES_LOADING_DONE, {
@@ -61,7 +61,7 @@ export default {
    */
   appMessagesMessageNew(message, type) {
     _.check({
-      nonEmptyString: [ [ message ] ],
+      isNonEmptyString: [ [ message ] ],
       contains: [ [ [ 'SUCCESS', 'INFO', 'WARNING', 'DANGER' ], type ] ]
     });
 
@@ -79,7 +79,7 @@ export default {
    */
   appMessagesSetLocale(locale) {
     _.check({
-      nonEmptyString: [ [ locale ] ]
+      isNonEmptyString: [ [ locale ] ]
     });
 
     this.dispatch(Constants.APP_MESSAGES_SET_LOCALE, {

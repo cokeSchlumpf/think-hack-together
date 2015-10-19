@@ -27,7 +27,7 @@ export default React.createClass({
 
   getDefaultProps() {
     return {
-      ideasService: new WebServiceClient(this, 'api/ideas')
+      ideasService: new WebServiceClient('api/ideas')
     };
   },
 

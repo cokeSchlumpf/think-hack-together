@@ -68,6 +68,13 @@ export default Fluxxor.createStore({
   },
 
   /**
+   * @return {string} current locale.
+   */
+  getLocale() {
+    return this._locale;
+  },
+
+  /**
    * Returns the state of the store.
    * @return {object} that contains messages and current loading events.
    */
@@ -135,7 +142,7 @@ export default Fluxxor.createStore({
    */
   _setLocale(payload) {
     this._emitChange(() => {
-      this._locale = payload.locale
+      this._locale = payload.locale;
     });
   }
 
