@@ -205,10 +205,10 @@ export default _.extend({}, _, {
   },
 
   /**
-   * Retuens value if condition is true.
+   * Returns value if condition is true.
    * @param {any} value which will be returned if condition is true.
    * @param {any} elseValue will be returned if condition is false.
-   * @param {function} condition, optional function which will be called with (value, elseValue). If not set the function will check if value is defined.
+   * @param {function} [condition], optional function which will be called with (value, elseValue). If not set the function will check if value is defined.
    * @return {any} either value or elseValue.
    */
   orElse(value, elseValue, condition) {

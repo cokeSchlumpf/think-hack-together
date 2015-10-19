@@ -111,7 +111,10 @@ export default class WebServiceClient {
    * @return {WebServiceClient} instance
    */
   constructor(servicePath, requestConfig, responseConfig) {
-    const serviceURL = `${UrlUtil.baseURL()}/${servicePath}`;
+    const serviceURL = _.doIfElse(
+      servicePath.indexOf('http://') === -1 || servicePath.indexOf('https://') === -1,
+      () => `${UrlUtil.baseURL()}/${servicePath}`,
+      () => servicePath);
     const serviceItemURL = `${serviceURL}/\${id}`;
 
     if (!requestConfig) {
