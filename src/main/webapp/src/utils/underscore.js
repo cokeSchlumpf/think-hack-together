@@ -56,6 +56,21 @@ export default _.extend({}, _, {
   },
 
   /**
+   * Checks whether func is defined, if yes it's called with all parameters after func
+   * @param {function} func to be called if defined
+   * @param {...any} argumentList to be passsed to func
+   * @return {any} return value of the function or undefined if func is not defined
+   */
+  callFunction(func, argumentList) {
+    return this.doIfElse(func, () => {
+      const args = _.toArray(arguments).slice(1);
+      func.apply(null, args);
+    }, () => {
+      // Do nothing.
+    });
+  },
+
+  /**
    * Executes checks on variables as given values of a `smart` object. E.g.
    *
    * {

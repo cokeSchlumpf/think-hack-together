@@ -4,53 +4,97 @@ import _ from './underscore';
 import UrlUtil from './url-util';
 
 class WebServiceHandler {
-  _callFunction(func) {
-    if (func) {
-      const args = _.toArray(arguments).slice(1);
-      func.apply(null, args);
-    }
 
-    return this;
+  /**
+   * Calls error handler if defined.
+   * @param {object} err extracted from response.
+   * @param {object} response from the server.
+   * @return {any} -thing the handler may return.
+   */
+  handleError(err, response) {
+    return _.callFunction(this._onError, err, response);
   }
 
-  handleError(err) {
-    return this._callFunction(this._onError, err);
-  }
-
+  /**
+   * Calls success handler if defined.
+   * @param {object} data extracted from the response.
+   * @param {object} response received from the server.
+   * @return {any} -thing the handler may return.
+   */
   handleSuccess(data, response) {
-    return this._callFunction(this._onSuccess, data, response);
+    return _.callFunction(this._onSuccess, data, response);
   }
 
+  /**
+   * Calls resquest-timeout handlers if defined.
+   * @param {object} req The The request sent to the server.
+   * @return {any} -thing the handler may return.
+   */
   handleRequestTimeout(req) {
-    this._callFunction(this._onRequestTimeout, req);
-    return this._callFunction(this._onTimeout, req);
+    _.callFunction(this._onTimeout, req);
+    return _.callFunction(this._onRequestTimeout, req);
   }
 
+  /**
+   * Calls response-timeout handlers if defined.
+   * @param {object} res The response received from the server.
+   * @return {any} -thing the handler may return.
+   */
   handleResponseTimeout(res) {
-    this._callFunction(this._onResponseTimeout, res);
-    return this._callFunction(this._onTimeout, res);
+    _.callFunction(this._onTimeout, res);
+    return _.callFunction(this._onResponseTimeout, res);
   }
 
+  /**
+   * Sets an error handler function.
+   * @param {function} func to be called if defined.
+   * @param {object} [context] which is bind to the function.
+   * @return {WebServiceHandler} this
+   */
   onError(func, context) {
     this._onError = context ? _.bind(func, context) : func;
     return this;
   }
 
+  /**
+   * Sets a success handler function.
+   * @param {function} func to be called if defined.
+   * @param {object} [context] which is bind to the function.
+   * @return {WebServiceHandler} this
+   */
   onSuccess(func, context) {
     this._onSuccess = context ? _.bind(func, context) : func;
     return this;
   }
 
+  /**
+   * Sets a timeout handler function which will be called on request- and response-timeouts.
+   * @param {function} func to be called if defined.
+   * @param {object} [context] which is bind to the function.
+   * @return {WebServiceHandler} this
+   */
   onTimeout(func, context) {
     this._onTimeout = context ? _.bind(func, context) : func;
     return this;
   }
 
+  /**
+   * Sets a request-timeout handler function.
+   * @param {function} func to be called if defined.
+   * @param {object} [context] which is bind to the function.
+   * @return {WebServiceHandler} this
+   */
   onRequestTimeout(func, context) {
     this._onRequestTimeout = context ? _.bind(func, context) : func;
     return this;
   }
 
+  /**
+   * Sets a response handler function.
+   * @param {function} func to be called if defined.
+   * @param {object} [context] which is bind to the function.
+   * @return {WebServiceHandler} this
+   */
   onResponseTimeout(func) {
     this._onResponseTimeout = context ? _.bind(func, context) : func;
     return this;
@@ -59,6 +103,13 @@ class WebServiceHandler {
 
 export default class WebServiceClient {
 
+  /**
+   * Creates a new instance of WebServiceClient.
+   * @param {string} servicePath of the server resource. E.g. '/api/books'.
+   * @param {object} [requestConfig] of the service.
+   * @param {object} [responseConfig] of the service.
+   * @return {WebServiceClient} instance
+   */
   constructor(servicePath, requestConfig, responseConfig) {
     const serviceURL = `${UrlUtil.baseURL()}/${servicePath}`;
     const serviceItemURL = `${serviceURL}/\${id}`;
@@ -95,6 +146,13 @@ export default class WebServiceClient {
     this.client.registerMethod('delete', serviceItemURL, 'DELETE');
   }
 
+  /**
+   * Internal method which calls the webservice client method with default request and response config,
+   * adds error handling and binds handlers.
+   * @param {function} func to be called.
+   * @param {object} args to be passed to the function (will be merged with configuration).
+   * @return {WebServiceHandler} handler.
+   */
   _callMethod(func, args) {
     const handler = new WebServiceHandler(this.owner);
     const clientConfig = {
@@ -103,7 +161,11 @@ export default class WebServiceClient {
     };
 
     const req = func.apply(this.client.methods, [ Object.assign({}, clientConfig, args), (responseData, response) => {
-      handler.handleSuccess(responseData, response);
+      if (response.statusCode >= 200 && response.statusCode <= 300) {
+        handler.handleSuccess(responseData, response);
+      } else {
+        handler.handleError(responseData, response);
+      }
     } ]);
 
     req.on('error', handler.handleError);
@@ -226,5 +288,14 @@ export default class WebServiceClient {
     };
 
     return this._callMethod(this.client.methods.delete, args);
+  }
+
+  /**
+   * @param {function} func which is called in case of an error.
+   * @param {object} [context] the function should be bind.
+   * @return {WebServiceClient} this
+   */
+  onError(func, context) {
+    this.client.on('error', context ? _.bind(func, context) : func);
   }
 }
