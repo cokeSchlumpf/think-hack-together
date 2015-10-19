@@ -1,4 +1,5 @@
 import Fluxxor from 'fluxxor';
+import cookie from 'cookie';
 import _ from '../../utils/underscore';
 
 import Constants from '../constants/app-messages';
@@ -28,6 +29,11 @@ export default Fluxxor.createStore({
     this._loading = [];
     this._locale = 'en-US';
 
+    const currentCookie = cookie.parse(document.cookie);
+    if (currentCookie && currentCookie.authToken) {
+      this._authToken = currentCookie.authToken;
+    }
+
     this.bindActions.apply(this, _.flatten(_.zip(_.values(Constants), [
       this._authenticate,
       this._loadingStart,
@@ -50,10 +56,12 @@ export default Fluxxor.createStore({
 
   /**
    * Returns the current authToken.
-   * @return {string} the authToken, may be undefined.
+   * @return {string} the authToken, may be undefined if no authToken present.
    */
   getAuthToken() {
-    return this._authToken;
+    return _.orElse({
+      Authorization: 'Bearer ' + this._authToken
+    }, null, () => this._authToken);
   },
 
   /**
@@ -105,6 +113,13 @@ export default Fluxxor.createStore({
    */
   _authenticate(payload) {
     this._emitChange(() => {
+      if (payload.token) {
+        document.cookie = cookie.serialize('authToken', payload.authToken);
+      } else {
+        document.cookie = cookie.serialize('', '', {
+          maxAge: 1
+        });
+      }
       this._authToken = payload.token;
     });
   },

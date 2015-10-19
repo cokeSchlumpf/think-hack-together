@@ -32,7 +32,7 @@ const App = React.createClass({
   },
 
   childContextTypes: {
-    authToken: React.PropTypes.string,
+    authToken: React.PropTypes.object,
     flux: React.PropTypes.any
   },
 
@@ -69,7 +69,7 @@ const App = React.createClass({
   },
 
   render() {
-    return this.state.authToken && this.state.authToken.length > 0 ? this.renderDefault() : this.renderLogin();
+    return this.state.authToken ? this.renderDefault() : this.renderLogin();
   }
 });
 

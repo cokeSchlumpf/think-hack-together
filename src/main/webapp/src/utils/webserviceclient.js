@@ -110,7 +110,7 @@ export default class WebServiceClient {
    * @param {object} [responseConfig] of the service.
    * @return {WebServiceClient} instance
    */
-  constructor(servicePath, requestConfig, responseConfig) {
+  constructor(servicePath, requestConfig = {}, responseConfig = {}) {
     _.check({
       isNonEmptyString: [ [ servicePath ] ]
     });
@@ -121,28 +121,8 @@ export default class WebServiceClient {
       () => servicePath);
     const serviceItemURL = `${serviceURL}/\${id}`;
 
-    if (!requestConfig) {
-      this.requestConfig = {
-        /*
-        timeout: 10000,
-        noDelay: true,
-        keepAlive: true,
-        keepAliveDelay: 10000
-        */
-      };
-    } else {
-      this.requestConfig = requestConfig;
-    }
-
-    if (!responseConfig) {
-      this.responseConfig = {
-        /*
-        timeout: 10000
-        */
-      };
-    } else {
-      this.responseConfig = responseConfig;
-    }
+    this.requestConfig = requestConfig;
+    this.responseConfig = responseConfig;
 
     this.client = new Client();
 
@@ -187,15 +167,15 @@ export default class WebServiceClient {
 
   /**
    * Lists a number of entities defined by start, count, and sortation.
+   * @param {headers} headers is a map if headers past to ther server.
    * @param {number} start is the first delivered entities.
    * @param {number} count is the number of delivered entities.
    * @param {string} orderBy is the name of the column the entities should be ordered. An array of strings will be transformed to a comma-speperated string.
    * @param {boolean} asc identifies the sorting order, default is true.
    * @param {object} where is a map where you define options to filter your entities. E.g. { "foo": "*bar" }.
-   * @param {headers} headers is a map if headers past to ther server.
    * @returns {array} a list of JSON entities.
    */
-  list(start = 0, count = 0, orderBy = '', asc = true, where = {}, headers = {}) {
+  list(headers = {}, start = 0, count = 0, orderBy = '', asc = true, where = {}) {
     const data = {};
 
     if (start !== 0) {

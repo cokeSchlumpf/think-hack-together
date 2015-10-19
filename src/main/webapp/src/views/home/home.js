@@ -45,11 +45,12 @@ export default React.createClass({
   },
 
   contextTypes: {
-    flux: React.PropTypes.any
+    authToken: React.PropTypes.object,
+    flux: React.PropTypes.object
   },
 
   componentDidMount() {
-    this.props.ideasService.list().onSuccess((data, response) => {
+    this.props.ideasService.list(this.context.authToken).onSuccess((data, response) => {
       this.ideasSetAll(data);
     }, this);
   },
@@ -59,7 +60,7 @@ export default React.createClass({
       tags: _.arrayFromString(idea.tags)
     });
 
-    this.props.ideasService.create(data).onSuccess((newIdea) => {
+    this.props.ideasService.create(data, this.context.authToken).onSuccess((newIdea) => {
       this.ideasSetOne(newIdea);
     }, this);
   },
@@ -73,7 +74,7 @@ export default React.createClass({
   // Generic solution
   handleDelete(entityname) {
     return _.bind((id) => {
-      this.props[entityname + 'Service'].delete(id).onSuccess(() => {
+      this.props[entityname + 'Service'].delete(id, this.context.authToken).onSuccess(() => {
         this.ideasDelete(id);
       }, this);
     }, this);
