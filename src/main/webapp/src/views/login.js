@@ -1,4 +1,5 @@
 import React from 'react';
+import cookie from 'cookie';
 import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import { Grid, Col, Row, ButtonInput, Input } from 'react-bootstrap';
 
@@ -24,8 +25,10 @@ export default React.createClass({
   },
 
   getInitialState() {
+    const c = cookie.parse(document.cookie);
+
     return {
-      username: '',
+      username: c.username && c.username !== 'undefined' ? c.username : '',
       password: ''
     };
   },
@@ -37,6 +40,9 @@ export default React.createClass({
     };
     this.context.flux.actions.appMessagesLoadingStart('Logging in', 'login', 1);
     this.props.authService.create(inData).onSuccess((outData, response) => {
+      document.cookie = cookie.serialize('username', this.state.username, {
+        path: '/'
+      });
       this.context.flux.actions.appMessagesAuthenticate(outData.token);
       this.context.flux.actions.appMessagesLoadingDone('login', 1);
     }, this);
