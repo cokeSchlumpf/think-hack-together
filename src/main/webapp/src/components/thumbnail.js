@@ -1,8 +1,3 @@
-/**
- * Thumbnail module.
- * @module components/thumbnail
- */
-
 import React from 'react';
 import { Link as RouterLink } from 'react-router';
 import cx from 'classnames';

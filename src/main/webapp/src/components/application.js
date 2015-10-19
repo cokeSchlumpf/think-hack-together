@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import { createHistory, useBasename } from 'history';
 
 import About from '../views/about';
-import Home from '../views/home';
+import Home from '../views/home/home';
 import Idea from '../views/idea';
 import Ideas from '../views/ideas';
 import Submit from '../views/submit';

@@ -4,16 +4,10 @@ import _ from './underscore';
 import UrlUtil from './url-util';
 
 class WebServiceHandler {
-
-  constructor(owner) {
-    this.owner = owner;
-  }
-
   _callFunction(func) {
     if (func) {
-      const args = Object.keys(arguments).map(key => arguments[key]);
-      args.shift();
-      func.apply(this.owner, args);
+      const args = _.toArray(arguments).slice(1);
+      func.apply(null, args);
     }
 
     return this;
@@ -37,40 +31,37 @@ class WebServiceHandler {
     return this._callFunction(this._onTimeout, res);
   }
 
-  onError(func) {
-    this._onError = func;
+  onError(func, context) {
+    this._onError = context ? _.bind(func, context) : func;
     return this;
   }
 
-  onSuccess(func) {
-    this._onSuccess = func;
+  onSuccess(func, context) {
+    this._onSuccess = context ? _.bind(func, context) : func;
     return this;
   }
 
-  onTimeout(func) {
-    this._onTimeout = func;
+  onTimeout(func, context) {
+    this._onTimeout = context ? _.bind(func, context) : func;
     return this;
   }
 
-  onRequestTimeout(func) {
-    this._onRequestTimeout = func;
+  onRequestTimeout(func, context) {
+    this._onRequestTimeout = context ? _.bind(func, context) : func;
     return this;
   }
 
   onResponseTimeout(func) {
-    this._onResponseTimeout = func;
+    this._onResponseTimeout = context ? _.bind(func, context) : func;
     return this;
   }
-
 }
 
 export default class WebServiceClient {
 
-  constructor(owner, servicePath, requestConfig, responseConfig) {
+  constructor(servicePath, requestConfig, responseConfig) {
     const serviceURL = `${UrlUtil.baseURL()}/${servicePath}`;
     const serviceItemURL = `${serviceURL}/\${id}`;
-
-    this.owner = owner;
 
     if (!requestConfig) {
       this.requestConfig = {

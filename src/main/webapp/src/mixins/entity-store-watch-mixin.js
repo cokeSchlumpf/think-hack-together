@@ -13,6 +13,16 @@ const EntityStoreWatchMixin = function() {
       [entityType.toLowerCase() + 'SetAll']: function(entities) {
         const flux = this.props.flux || this.context.flux;
         flux.actions.entitiesSetAll(entityType, entities);
+      },
+
+      [entityType.toLowerCase() + 'SetOne']: function(entity) {
+        const flux = this.props.flux || this.context.flux;
+        flux.actions.entitiesSetOne(entityType, entity);
+      },
+
+      [entityType.toLowerCase() + 'Delete']: function(id) {
+        const flux = this.props.flux || this.context.flux;
+        flux.actions.entitiesDelete(entityType, id);
       }
     });
   }, {});
