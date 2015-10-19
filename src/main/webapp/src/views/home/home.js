@@ -11,6 +11,7 @@ import ItemGroup from './_item-group';
 import IdeasCreateForm from '../../components/ideas-create-form';
 import Search from '../../components/search';
 import View from '../../components/view';
+import AppMessages from '../../components/app-messages';
 
 import { EntityStore } from '../../flux/stores/_storeNames';
 import EntityStoreWatchMixin from '../../mixins/entity-store-watch-mixin';
@@ -84,6 +85,7 @@ export default React.createClass({
     return (
       <View>
         <Header />
+        <AppMessages />
         <Grid>
           <Row>
             <Col md={ 6 }>

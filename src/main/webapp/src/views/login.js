@@ -45,6 +45,8 @@ export default React.createClass({
       });
       this.context.flux.actions.appMessagesAuthenticate(outData.token);
       this.context.flux.actions.appMessagesLoadingDone('login', 1);
+      this.context.flux.actions.appMessagesMessageNew('LOGIN.LOGGED_IN', 'SUCCESS', this.state.username);
+      this.context.flux.actions.appMessagesMessageNew('EXAMPLE.WARNING', 'WARNING');
     }, this);
   },
 

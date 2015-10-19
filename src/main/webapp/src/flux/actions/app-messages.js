@@ -70,9 +70,10 @@ export default {
    * Creates a new application message.
    * @param {string} message which will be displayed
    * @param {string} type of the message, one of: SUCCESS, INFO, WARNING, DANGER
+   * @param {...string} parameters of the message text.
    * @return {undefined}
    */
-  appMessagesMessageNew(message, type) {
+  appMessagesMessageNew(message, type, parameters) {
     _.check({
       isNonEmptyString: [ [ message ] ],
       contains: [ [ [ 'SUCCESS', 'INFO', 'WARNING', 'DANGER' ], type ] ]
@@ -81,7 +82,8 @@ export default {
     this.dispatch(Constants.APP_MESSAGES_MESSAGE_NEW, {
       message: message,
       type: type,
-      hidden: hidden
+      hidden: false,
+      parameters: _.toArray(arguments).slice(2)
     });
   },
 
