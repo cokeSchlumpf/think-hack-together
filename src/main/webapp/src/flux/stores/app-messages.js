@@ -29,6 +29,7 @@ export default Fluxxor.createStore({
     this._locale = 'en-US';
 
     this.bindActions.apply(this, _.flatten(_.zip(_.values(Constants), [
+      this._authenticate,
       this._loadingStart,
       this._loadingDone,
       this._messageHide,
@@ -45,6 +46,14 @@ export default Fluxxor.createStore({
   _emitChange(func) {
     func.apply(this);
     this.emit('change');
+  },
+
+  /**
+   * Returns the current authToken.
+   * @return {string} the authToken, may be undefined.
+   */
+  getAuthToken() {
+    return this._authToken;
   },
 
   /**
@@ -87,6 +96,17 @@ export default Fluxxor.createStore({
       }),
       loading: this._loading
     };
+  },
+
+  /**
+   * Changes state of authentication of the application.
+   * @param {object} payload containes the token { token: '...' }.
+   * @return {undefined} but a change will be emitted.
+   */
+  _authenticate(payload) {
+    this._emitChange(() => {
+      this._authToken = payload.token;
+    });
   },
 
   /**

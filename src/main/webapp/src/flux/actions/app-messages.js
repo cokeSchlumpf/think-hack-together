@@ -3,6 +3,17 @@ import _ from '../../utils/underscore';
 
 export default {
   /**
+   * Changes the authentication state of the application.
+   * @param {string} [token] which will be send to the server during requests to authenticate; leave undefined to log out.
+   * @return {undefined}
+   */
+  appMessagesAuthenticate(token) {
+    this.dispatch(Constants.APP_MESSAGES_AUTHENTICATE, {
+      token: token
+    });
+  },
+
+  /**
    * Indicates that an async loading operation started.
    * @param {string} message which will be displayed
    * @param {string} component which owns the loading event

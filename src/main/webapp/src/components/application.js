@@ -1,8 +1,10 @@
 import React from 'react';
 import Fluxxor from 'fluxxor';
+import { StoreWatchMixin } from 'fluxxor';
 import { Router, Route, IndexRoute } from 'react-router';
 import { createHistory, useBasename } from 'history';
 
+import Login from '../views/login';
 import About from '../views/about';
 import Home from '../views/home/home';
 import Idea from '../views/idea';
@@ -15,34 +17,59 @@ import Footer from './footer';
 
 import Actions from '../flux/actions/_actions';
 import Stores from '../flux/stores/_stores';
+import { AppMessagesStore } from '../flux/stores/_storeNames';
 
 const flux = new Fluxxor.Flux(Stores, Actions);
 
 const App = React.createClass({
   displayName: 'App',
 
+  mixins: [ StoreWatchMixin(AppMessagesStore) ],
+
   propTypes: {
-    children: React.PropTypes.any
+    children: React.PropTypes.any,
+    flux: React.PropTypes.any
   },
 
   childContextTypes: {
+    authToken: React.PropTypes.string,
     flux: React.PropTypes.any
   },
 
   getChildContext() {
     return {
+      flux: flux,
+      authToken: this.state.authToken
+    };
+  },
+
+  getDefaultProps() {
+    return {
       flux: flux
     };
   },
 
-  render() {
+  getStateFromFlux() {
+    return {
+      authToken: flux.stores[AppMessagesStore].getAuthToken()
+    };
+  },
+
+  renderLogin() {
+    return <Login />;
+  },
+
+  renderDefault() {
     return (
       <div>
         <Navbar />
         { this.props.children }
         <Footer />
-      </div>
-      );
+      </div>);
+  },
+
+  render() {
+    return this.state.authToken && this.state.authToken.length > 0 ? this.renderDefault() : this.renderLogin();
   }
 });
 
