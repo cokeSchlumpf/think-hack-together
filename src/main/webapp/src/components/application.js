@@ -56,7 +56,11 @@ const App = React.createClass({
   },
 
   renderLogin() {
-    return <Login />;
+    return (
+      <div>
+        <Navbar />
+        <Login />
+      </div>);
   },
 
   renderDefault() {

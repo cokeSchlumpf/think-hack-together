@@ -30,7 +30,7 @@ export default Fluxxor.createStore({
     this._locale = 'en-US';
 
     const currentCookie = cookie.parse(document.cookie);
-    if (currentCookie && currentCookie.authToken) {
+    if (currentCookie && currentCookie.authToken && currentCookie.authToken !== 'undefined') {
       this._authToken = currentCookie.authToken;
     }
 
@@ -61,11 +61,11 @@ export default Fluxxor.createStore({
   getAuthToken() {
     return _.orElse({
       Authorization: 'Bearer ' + this._authToken
-    }, null, () => this._authToken);
+    }, this._authToken, () => _.isDefined(this._authToken));
   },
 
   /**
-   * @param {string} filterType to only return messages of a given type.
+   * @param {string} [filterType] to only return messages of a given type.
    * @return {array} of all messages which are not hidden.
    */
   getCurrentMessages(filterType) {
@@ -75,12 +75,12 @@ export default Fluxxor.createStore({
   },
 
   /**
-   * @param {string} componentName of the component which is the owner of the events.
+   * @param {string} [componentName] of the component which is the owner of the events.
    * @return {array} a list of current loading events for the component.
    */
   getLoadingEvents(componentName) {
-    return _filter(this._loading, event => {
-      return event.componentName === componentName;
+    return _.filter(this._loading, event => {
+      return !componentName || event.componentName === componentName;
     });
   },
 
@@ -113,13 +113,10 @@ export default Fluxxor.createStore({
    */
   _authenticate(payload) {
     this._emitChange(() => {
-      if (payload.token) {
-        document.cookie = cookie.serialize('authToken', payload.authToken);
-      } else {
-        document.cookie = cookie.serialize('', '', {
-          maxAge: 1
-        });
-      }
+      document.cookie = cookie.serialize('authToken', payload.token, {
+        path: '/'
+      });
+
       this._authToken = payload.token;
     });
   },

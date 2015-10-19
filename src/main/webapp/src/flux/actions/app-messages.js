@@ -22,7 +22,8 @@ export default {
    */
   appMessagesLoadingStart(message, component, identity) {
     _.check({
-      nonEmptyString: [ [ message ], [ component ], [ identity ] ]
+      isNonEmptyString: [ [ message ], [ component ] ],
+      isDefined: [ [ identity ] ]
     });
 
     this.dispatch(Constants.APP_MESSAGES_LOADING_START, {
@@ -40,7 +41,8 @@ export default {
    */
   appMessagesLoadingDone(component, identity) {
     _.check({
-      isNonEmptyString: [ [ component ], [ identity ] ]
+      isNonEmptyString: [ [ component ] ],
+      isDefined: [ [ identity ] ]
     });
 
     this.dispatch(Constants.APP_MESSAGES_LOADING_DONE, {

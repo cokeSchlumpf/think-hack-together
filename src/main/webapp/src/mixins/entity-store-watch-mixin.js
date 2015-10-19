@@ -47,7 +47,7 @@ const EntityStoreWatchMixin = function() {
     componentWillUnmount() {
       const flux = this.props.flux || this.context.flux;
       this.mounted = false;
-      _.each(entityTypes, function(store) {
+      _.each(entityTypes, function(entityType) {
         flux.stores[EntitiesStore].removeListener(changeEventName(entityType), this._setStateFromFlux);
       }, this);
     },

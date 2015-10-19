@@ -41,6 +41,7 @@
     "jest-cli": "^0.5.10",
     "less": "^2.5.3",
     "less-plugin-clean-css": "^1.5.1",
+    "node-notifier": "^4.3.1",
     "npm-watch": "^0.0.1"
   },
   "scripts": {
@@ -51,7 +52,8 @@
     "format": "esformatter -i ./src/**/*.js",
     "lint": "eslint --fix ./src",
     "test": "jest",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "notify-build-dev": "notify -t 'build-dev' -m 'DONE'"
   },
   "watch": {
     "build-dev": "src/**/*.js",

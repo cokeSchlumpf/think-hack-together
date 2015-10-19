@@ -35,9 +35,10 @@ export default React.createClass({
       username: this.state.username,
       password: this.state.password
     };
-
+    this.context.flux.actions.appMessagesLoadingStart('Logging in', 'login', 1);
     this.props.authService.create(inData).onSuccess((outData, response) => {
       this.context.flux.actions.appMessagesAuthenticate(outData.token);
+      this.context.flux.actions.appMessagesLoadingDone('login', 1);
     }, this);
   },
 
