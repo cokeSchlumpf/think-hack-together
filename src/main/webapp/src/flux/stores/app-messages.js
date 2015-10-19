@@ -26,12 +26,14 @@ export default Fluxxor.createStore({
   initialize() {
     this._messages = [];
     this._loading = [];
+    this._locale = 'en-US';
 
     this.bindActions.apply(this, _.flatten(_.zip(_.values(Constants), [
       this._loadingStart,
       this._loadingDone,
       this._messageHide,
-      this._messageNew
+      this._messageNew,
+      this._setLocale
     ])));
   },
 
@@ -123,6 +125,17 @@ export default Fluxxor.createStore({
   _messageNew(payload) {
     this._emitChange(() => {
       this._messages.push(payload);
+    });
+  },
+
+  /**
+   * Creates a new message.
+   * @param {object} payload contains the new locale as known country code, e.g. { locale: 'en-US' }
+   * @return {undefined} but a change will be emitted.
+   */
+  _setLocale(payload) {
+    this._emitChange(() => {
+      this._locale = payload.locale
     });
   }
 

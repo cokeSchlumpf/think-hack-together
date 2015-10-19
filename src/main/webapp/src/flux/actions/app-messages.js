@@ -70,5 +70,20 @@ export default {
       type: type,
       hidden: hidden
     });
+  },
+
+  /**
+   * Sets the local of the application.
+   * @param {string} locale of the application
+   * @return {undefined}
+   */
+  appMessagesSetLocale(locale) {
+    _.check({
+      nonEmptyString: [ [ locale ] ]
+    });
+
+    this.dispatch(Constants.APP_MESSAGES_SET_LOCALE, {
+      locale: locale
+    });
   }
 };
