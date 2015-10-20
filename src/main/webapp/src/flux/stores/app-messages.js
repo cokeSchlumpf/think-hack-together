@@ -58,7 +58,7 @@ export default Fluxxor.createStore({
   },
 
   /**
-   * Returns the current authToken.
+   * Returns the current authToken
    * @return {string} the authToken, may be undefined if no authToken present.
    */
   getAuthToken() {
