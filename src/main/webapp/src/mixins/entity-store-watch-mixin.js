@@ -1,7 +1,19 @@
 import { EntitiesStore } from '../flux/stores/_storeNames';
 import _ from '../utils/underscore';
 
-const EntityStoreWatchMixin = function() {
+/**
+ * This mixin helps you to use the EntityStore for different entity types.
+ *
+ * It creates the getStateFromFlux method and adds eventHandlers for the EntitiesStore,
+ * as well as three helper methods via entity:
+ * - [entityName]SetAll(listofEntities)
+ * - [entityName]SetOne(entity)
+ * - [entityName]Delete(id)
+ *
+ * @param {array} entityTypeNames of all entities you like to manage.
+ * @return {object} EntityStoreWatch Mixin
+ */
+const EntityStoreWatchMixin = function(entityTypeNames) {
   const entityTypes = Array.prototype.slice.call(arguments);
 
   const changeEventName = (entityType) => {
