@@ -15,11 +15,12 @@ import AppMessages from '../../components/app-messages';
 
 import { EntityStore } from '../../flux/stores/_storeNames';
 import EntityStoreWatchMixin from '../../mixins/entity-store-watch-mixin';
+import WebServiceHelperMixin from '../../mixins/webservice-helper-mixin';
 
 export default React.createClass({
   displayName: 'Home',
 
-  mixins: [ EntityStoreWatchMixin('Ideas') ],
+  mixins: [ EntityStoreWatchMixin('Ideas'), WebServiceHelperMixin('Ideas') ],
 
   propTypes: {
     ideasService: React.PropTypes.any

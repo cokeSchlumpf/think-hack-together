@@ -123,6 +123,7 @@ export default class WebServiceClient {
 
     this.requestConfig = requestConfig;
     this.responseConfig = responseConfig;
+    this.requestCount = 0;
 
     this.client = new Client();
 
@@ -147,22 +148,43 @@ export default class WebServiceClient {
       responseConfig: this.responseConfig
     };
 
-    const req = func.apply(this.client.methods, [ Object.assign({}, clientConfig, args), (responseData, response) => {
+    this.requestCount = this.requestCount + 1;
+    const requestNumber = this.requestCount;
+
+    _.callFunction(this._onStartRequest, requestNumber);
+
+    const req = func.apply(this.client.methods, [ Object.assign({}, clientConfig, args), _.bind((responseData, response) => {
       if (response.statusCode >= 200 && response.statusCode <= 300) {
         handler.handleSuccess(responseData, response);
       } else {
         handler.handleError(responseData, response);
+        _.callFunction(this._onError, responseData, response);
       }
-    } ]);
 
-    req.on('error', handler.handleError);
-    req.on('responseTimeout', handler.handleResponseTimeout);
-    req.on('requestTimeout', request => {
+      _.callFunction(this._onFinishRequest, requestNumber);
+    }, this) ]);
+
+    req.on('error', this._callFinishRequest(requestNumber, handler.handleError));
+    req.on('responseTimeout', this._callFinishRequest(requestNumber, handler.handleResponseTimeout));
+    req.on('requestTimeout', this._callFinishRequest(requestNumber, request => {
       handler.handleRequestTimeout(request);
       request.abort();
-    });
+    }));
 
     return handler;
+  }
+
+  /**
+   * Calls onFinishRequest after calling func.
+   * @param {number} requestNumber identifies the number of the request.
+   * @param {function} func will be executed before onFinishRequest.
+   * @return {function} a function which can be registered as handler.
+   */
+  _callFinishRequest(requestNumber, func) {
+    return function() {
+      func.apply();
+      _.callFunction(this._onFinishRequest, requestNumber);
+    };
   }
 
   /**
@@ -278,11 +300,30 @@ export default class WebServiceClient {
   }
 
   /**
+   * @param {function} func to be executed after finishing a request.
+   * @param {object} context for the func.
+   * @return {WebServiceClient} this.
+   */
+  onFinishRequest(func, context) {
+    this._onFinishRequest = context ? _.bind(func, context) : func;
+  }
+
+  /**
+   * @param {function} func to be executed before starting a request.
+   * @param {object} context for the func.
+   * @return {WebServiceClient} this.
+   */
+  onStartRequest(func, context) {
+    this._onStartRequest = context ? _.bind(func, context) : func;
+  }
+
+  /**
    * @param {function} func which is called in case of an error.
    * @param {object} [context] the function should be bind.
    * @return {WebServiceClient} this
    */
   onError(func, context) {
-    this.client.on('error', context ? _.bind(func, context) : func);
+    this._onError = context ? _.bind(func, context) : func;
+    this.client.on('error', this._onError);
   }
 }

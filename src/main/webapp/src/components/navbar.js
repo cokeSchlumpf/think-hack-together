@@ -36,8 +36,8 @@ export default React.createClass({
   render() {
     return (
       <div className="app-header">
-        { this.renderProgressBar() }
-        <nav className="navbar navbar-static-top">
+        <nav className="navbar navbar-fixed-top">
+          { this.renderProgressBar() }
           <Grid>
             <div className="navbar-header">
               <button type="button"

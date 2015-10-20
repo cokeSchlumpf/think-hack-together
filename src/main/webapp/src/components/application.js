@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Fluxxor from 'fluxxor';
 import { StoreWatchMixin } from 'fluxxor';
 import { Router, Route, IndexRoute } from 'react-router';
@@ -20,6 +21,11 @@ import Stores from '../flux/stores/_stores';
 import { AppMessagesStore } from '../flux/stores/_storeNames';
 
 const flux = new Fluxxor.Flux(Stores, Actions);
+flux.setDispatchInterceptor(function(action, dispatch) {
+  ReactDOM.unstable_batchedUpdates(function() {
+    dispatch(action);
+  });
+});
 
 const App = React.createClass({
   displayName: 'App',

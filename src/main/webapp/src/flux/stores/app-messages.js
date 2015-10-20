@@ -50,7 +50,9 @@ export default Fluxxor.createStore({
    * @return {undefined} but a change will be emitted.
    */
   _emitChange(func) {
-    func.apply(this);
+    if (_.isFunction(func)) {
+      func.apply(this);
+    }
     this.emit('change');
   },
 

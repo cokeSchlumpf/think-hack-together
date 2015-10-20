@@ -4,11 +4,12 @@ import LinkedStateMixin from 'react-addons-linked-state-mixin';
 import { Grid, Col, Row, ButtonInput, Input } from 'react-bootstrap';
 
 import WebServiceClient from '../utils/webserviceclient';
+import WebServiceHelperMixin from '../mixins/webservice-helper-mixin';
 
 export default React.createClass({
   displayName: 'Login',
 
-  mixins: [ LinkedStateMixin ],
+  mixins: [ LinkedStateMixin, WebServiceHelperMixin('auth') ],
 
   contextTypes: {
     flux: React.PropTypes.any
@@ -38,13 +39,11 @@ export default React.createClass({
       username: this.state.username,
       password: this.state.password
     };
-    this.context.flux.actions.appMessagesLoadingStart('Logging in', 'login', 1);
     this.props.authService.create(inData).onSuccess((outData, response) => {
       document.cookie = cookie.serialize('username', this.state.username, {
         path: '/'
       });
       this.context.flux.actions.appMessagesAuthenticate(outData.token);
-      this.context.flux.actions.appMessagesLoadingDone('login', 1);
       this.context.flux.actions.appMessagesMessageNew('LOGIN.LOGGED_IN', 'SUCCESS', this.state.username);
       this.context.flux.actions.appMessagesMessageNew('EXAMPLE.WARNING', 'WARNING');
     }, this);

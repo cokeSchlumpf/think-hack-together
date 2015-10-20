@@ -4,5 +4,9 @@ export default {
   },
   LOGIN: {
     LOGGED_IN: 'WELCOME %0!'
+  },
+
+  EXCEPTION: {
+    SAMPLE: 'Hello Friends %0!'
   }
 };

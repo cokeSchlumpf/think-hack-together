@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.Idea;
+import ws.exceptions.SampleException;
 
 @Path("ideas")
 @Singleton
@@ -45,14 +46,15 @@ public class IdeasService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response create(Idea entity) {
-		Response result = null;
-
-		entity.setId(this.ideas.size() + 1);
-		if (this.ideas.add(entity)) {
-			result = Response.status(Response.Status.CREATED).entity(entity).build();
-		}
-
-		return result;
+		throw new SampleException();
+//		Response result = null;
+//
+//		entity.setId(this.ideas.size() + 1);
+//		if (this.ideas.add(entity)) {
+//			result = Response.status(Response.Status.CREATED).entity(entity).build();
+//		}
+//
+//		return result;
 	}
 
 	@GET
