@@ -36,6 +36,7 @@ export default Fluxxor.createStore({
 
     this.bindActions.apply(this, _.flatten(_.zip(_.values(Constants), [
       this._authenticate,
+      this._clear,
       this._loadingStart,
       this._loadingDone,
       this._messageHide,
@@ -120,6 +121,16 @@ export default Fluxxor.createStore({
       });
 
       this._authToken = payload.token;
+    });
+  },
+
+  /**
+   * Clears all messages and loading events.
+   */
+  _clear() {
+    this._emitChange(() => {
+      this._messages = [];
+      this._loading = [];
     });
   },
 

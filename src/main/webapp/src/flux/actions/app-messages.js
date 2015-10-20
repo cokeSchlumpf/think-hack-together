@@ -14,6 +14,13 @@ export default {
   },
 
   /**
+   * Clears all application messages and current loading events.
+   */
+  appMessagesClear() {
+    this.dispatch(Constants.APP_MESSAGES_CLEAR, {});
+  },
+
+  /**
    * Indicates that an async loading operation started.
    * @param {string} message which will be displayed
    * @param {string} component which owns the loading event
