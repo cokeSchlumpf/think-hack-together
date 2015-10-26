@@ -95,9 +95,9 @@ export default React.createClass({
               </Locale>
             </Col>
             <Col md={ 6 }>
-              <Button onClick={ () => this.context.flux.actions.appMessagesSetLocale('es-UY') }>
+              <Locale componentClass={ Button } onClick={ () => this.context.flux.actions.appMessagesSetLocale('es-UY') }>
                 Hallo
-              </Button>
+              </Locale>
             </Col>
           </Row>
         </Grid>
