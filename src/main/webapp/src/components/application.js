@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { addLocaleData, IntlProvider } from 'react-intl';
+import enLocaleData from 'react-intl/lib/locale-data/en';
+import deLocaleData from 'react-intl/lib/locale-data/de';
 import Fluxxor from 'fluxxor';
 import { StoreWatchMixin } from 'fluxxor';
 import { Router, Route, IndexRoute } from 'react-router';
 import { createHistory, useBasename } from 'history';
+
+import _ from '../utils/underscore';
 
 import Login from '../views/login';
 import About from '../views/about';
@@ -19,6 +24,11 @@ import Footer from './footer';
 import Actions from '../flux/actions/_actions';
 import Stores from '../flux/stores/_stores';
 import { AppMessagesStore } from '../flux/stores/_storeNames';
+
+import Messages from '../messages/_messages';
+
+addLocaleData(enLocaleData);
+addLocaleData(deLocaleData);
 
 const flux = new Fluxxor.Flux(Stores, Actions);
 flux.setDispatchInterceptor(function(action, dispatch) {
@@ -57,7 +67,8 @@ const App = React.createClass({
 
   getStateFromFlux() {
     return {
-      authToken: flux.stores[AppMessagesStore].getAuthToken()
+      authToken: flux.stores[AppMessagesStore].getAuthToken(),
+      locale: flux.stores[AppMessagesStore].getLocale()
     };
   },
 
@@ -70,12 +81,16 @@ const App = React.createClass({
   },
 
   renderDefault() {
+    const messages = Messages[this.state.locale] ? Messages[this.state.locale] : Messages.default;
+
     return (
-      <div>
-        <Navbar />
-        { this.props.children }
-        <Footer />
-      </div>);
+      <IntlProvider locale={ this.state.locale } messages={ messages }>
+        <div>
+          <Navbar />
+          { this.props.children }
+          <Footer />
+        </div>
+      </IntlProvider>);
   },
 
   render() {

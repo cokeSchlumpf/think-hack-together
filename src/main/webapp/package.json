@@ -14,11 +14,13 @@
     "cookie": "^0.2.2",
     "fluxxor": "^1.7.3",
     "history": "^1.12.3",
+    "intl": "^1.0.1",
     "node-rest-client": "^1.5.1",
     "react": "^0.14.0",
     "react-addons-linked-state-mixin": "^0.14.0",
     "react-addons-update": "^0.14.0",
     "react-bootstrap": "^0.27.1",
+    "react-intl": "^2.0.0-beta-1",
     "react-dom": "^0.14.0",
     "react-router": "^1.0.0-rc3",
     "underscore": "^1.8.3"

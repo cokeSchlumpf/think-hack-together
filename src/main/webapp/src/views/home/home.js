@@ -1,5 +1,8 @@
 import React from 'react';
 import { Grid, Col, Row, Jumbotron, Button } from 'react-bootstrap';
+import Intl from 'intl';
+import ReactIntl from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import _ from '../../utils/underscore';
 import WebServiceClient from '../../utils/webserviceclient';
@@ -48,7 +51,8 @@ export default React.createClass({
 
   contextTypes: {
     authToken: React.PropTypes.object,
-    flux: React.PropTypes.object
+    flux: React.PropTypes.object,
+    intl: React.PropTypes.object
   },
 
   componentDidMount() {
@@ -90,14 +94,16 @@ export default React.createClass({
         <Grid>
           <Row>
             <Col md={ 6 }>
-              <Locale params={ [ 'FCB', 'SGD' ] }>
-                HOME.LOREM_IPSUM
-              </Locale>
+              <FormattedMessage id="HOME.TEST" values={ {  name: 'Emil'} } />
             </Col>
             <Col md={ 6 }>
-              <Locale componentClass={ Button } onClick={ () => this.context.flux.actions.appMessagesSetLocale('es-UY') }>
-                Hallo
-              </Locale>
+              <Button onClick={ () => this.context.flux.actions.appMessagesSetLocale('de-DE') }>
+                { this.context.intl.formatMessage({
+                    id: 'TEST'
+                  }, {
+                    name: "Emil"
+                  }) }
+              </Button>
             </Col>
           </Row>
         </Grid>

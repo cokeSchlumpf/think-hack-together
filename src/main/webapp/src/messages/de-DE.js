@@ -1,5 +1,8 @@
 export default {
+  TEST: 'Hallo {name}',
+
   HOME: {
+    TEST: 'Hallo {name}',
     LOREM_IPSUM: 'lorem %0 ipsum %1 DEUTSCH'
   },
 
