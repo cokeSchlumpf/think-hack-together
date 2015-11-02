@@ -44,8 +44,9 @@ export default React.createClass({
         path: '/'
       });
       this.context.flux.actions.appMessagesAuthenticate(outData.token);
-      this.context.flux.actions.appMessagesMessageNew('LOGIN.LOGGED_IN', 'SUCCESS', this.state.username);
-      this.context.flux.actions.appMessagesMessageNew('EXAMPLE.WARNING', 'WARNING');
+      this.context.flux.actions.appMessagesMessageNew('LOGIN.LOGGED_IN', 'SUCCESS', {
+        username: this.state.username
+      });
     }, this);
   },
 

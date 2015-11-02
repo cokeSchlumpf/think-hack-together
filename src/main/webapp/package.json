@@ -48,7 +48,7 @@
   },
   "scripts": {
     "babelify": "browserify -e ./src/main.js -t [ babelify --plugins object-assign ] > ./assets/js/main.min.js",
-    "build": "npm run format && npm test && npm run lint && npm run babelify && npm run css",
+    "build": "npm run format && npm run lint && npm test && npm run babelify && npm run css",
     "build-dev": "browserify --debug -e ./src/main.js -t [ babelify --plugins object-assign --sourceMapRelative . ] > ./assets/js/main.min.js",
     "css": "lessc --clean-css ./src/style.less ./assets/css/style.min.css",
     "format": "esformatter -i ./src/**/*.js",

@@ -1,9 +1,9 @@
 import React from 'react';
 import { StoreWatchMixin } from 'fluxxor';
+import { FormattedMessage } from 'react-intl';
 import { Grid, Col, Row, ButtonInput, Input, Alert } from 'react-bootstrap';
 
 import _ from '../utils/underscore';
-import Locale from './locale';
 import { AppMessagesStore } from '../flux/stores/_storeNames';
 
 export default React.createClass({
@@ -32,9 +32,7 @@ export default React.createClass({
       return (
         <Alert key={ 'alert' + message.id } bsStyle={ message.type.toLowerCase() } onDismiss={ this.handleDismiss(message.id) }>
           <p>
-            <Locale params={ message.parameters }>
-              { message.message }
-            </Locale>
+            <FormattedMessage id={ message.message } values={ message.parameters } />
           </p>
         </Alert>);
     }, this);

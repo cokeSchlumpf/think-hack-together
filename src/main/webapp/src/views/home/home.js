@@ -1,13 +1,9 @@
 import React from 'react';
 import { Grid, Col, Row, Jumbotron, Button } from 'react-bootstrap';
-import Intl from 'intl';
-import ReactIntl from 'react-intl';
 import { FormattedMessage } from 'react-intl';
 
 import _ from '../../utils/underscore';
 import WebServiceClient from '../../utils/webserviceclient';
-
-import Locale from '../../components/locale';
 
 import Header from './_header';
 import ItemGroup from './_item-group';
@@ -87,6 +83,17 @@ export default React.createClass({
   },
 
   render() {
+    const testMessageDescriptor = {
+      id: 'HOME.TEST',
+      defaultMessage: 'Testnachricht'
+    };
+
+    const testMessageVars = {
+      name: 'Emil'
+    };
+
+    const testMessage = this.context.intl.formatMessage(testMessageDescriptor, testMessageVars);
+
     return (
       <View>
         <Header />
@@ -94,15 +101,11 @@ export default React.createClass({
         <Grid>
           <Row>
             <Col md={ 6 }>
-              <FormattedMessage id="HOME.TEST" values={ {  name: 'Emil'} } />
+              <FormattedMessage { ...testMessageDescriptor } values={ testMessageVars } />
             </Col>
             <Col md={ 6 }>
               <Button onClick={ () => this.context.flux.actions.appMessagesSetLocale('de-DE') }>
-                { this.context.intl.formatMessage({
-                    id: 'TEST'
-                  }, {
-                    name: "Emil"
-                  }) }
+                { testMessage }
               </Button>
             </Col>
           </Row>

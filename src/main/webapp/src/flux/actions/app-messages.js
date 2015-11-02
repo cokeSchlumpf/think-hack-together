@@ -15,6 +15,7 @@ export default {
 
   /**
    * Clears all application messages and current loading events.
+   * @return {undefined}
    */
   appMessagesClear() {
     this.dispatch(Constants.APP_MESSAGES_CLEAR, {});
@@ -77,20 +78,21 @@ export default {
    * Creates a new application message.
    * @param {string} message which will be displayed
    * @param {string} type of the message, one of: SUCCESS, INFO, WARNING, DANGER
-   * @param {...string} parameters of the message text.
+   * @param {object} parameters of the message text.
    * @return {undefined}
    */
   appMessagesMessageNew(message, type, parameters) {
     _.check({
       isNonEmptyString: [ [ message ] ],
-      contains: [ [ [ 'SUCCESS', 'INFO', 'WARNING', 'DANGER' ], type ] ]
+      contains: [ [ [ 'SUCCESS', 'INFO', 'WARNING', 'DANGER' ], type ] ],
+      isObject: parameters ? [ [ parameters ] ] : []
     });
 
     this.dispatch(Constants.APP_MESSAGES_MESSAGE_NEW, {
       message: message,
       type: type,
       hidden: false,
-      parameters: _.toArray(arguments).slice(2)
+      parameters: parameters
     });
   },
 

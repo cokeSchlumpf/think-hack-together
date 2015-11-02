@@ -8,7 +8,7 @@ import Constants from '../constants/app-messages';
  * This store handles messages, notifications, errors of the application.
  * All messages are stored in an array. Each message has the format:
  *
- * { id: 0, message: 'string', type: 'SUCCESS|INFO|WARNING|DANGER', hidden: false, parameters: [] }
+ * { id: 0, message: 'string', type: 'SUCCESS|INFO|WARNING|DANGER', hidden: false, parameters: {} }
  *
  * In addition to messages, the store keeps the state whether the application
  * is loading data or not. For this purpose it keeps a list of current loading
@@ -126,6 +126,7 @@ export default Fluxxor.createStore({
 
   /**
    * Clears all messages and loading events.
+   * @return {undefined} but a change will be emitted.
    */
   _clear() {
     this._emitChange(() => {
